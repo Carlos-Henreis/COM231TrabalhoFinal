@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 01/06/2017 18:13:24 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Model.Hospital" table="hospital" catalog="sagha" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="nome" type="string">
+            <column name="nome" length="64" not-null="true" />
+        </property>
+        <set name="atendimentoDrgs" table="atendimento_drg" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idhospital" not-null="true" />
+            </key>
+            <one-to-many class="Model.AtendimentoDrg" />
+        </set>
+        <one-to-one name="endereco" class="Model.Endereco"></one-to-one>
+        <set name="hospitaisRegiaos" table="hospitais_regiao" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idhospital" not-null="true" />
+            </key>
+            <one-to-many class="Model.HospitaisRegiao" />
+        </set>
+    </class>
+</hibernate-mapping>

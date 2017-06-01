@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 01/06/2017 18:13:24 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Model.Drg" table="drg" catalog="sagha" optimistic-lock="version">
+        <id name="codigo" type="short">
+            <column name="codigo" />
+            <generator class="assigned" />
+        </id>
+        <property name="definicao" type="string">
+            <column name="definicao" length="128" not-null="true" />
+        </property>
+        <set name="atendimentoDrgs" table="atendimento_drg" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="codigodrg" not-null="true" />
+            </key>
+            <one-to-many class="Model.AtendimentoDrg" />
+        </set>
+    </class>
+</hibernate-mapping>
