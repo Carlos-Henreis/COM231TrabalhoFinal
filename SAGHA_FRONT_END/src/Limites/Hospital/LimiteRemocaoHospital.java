@@ -1,5 +1,6 @@
 package Limites.Hospital;
 
+import Controladores.ControleHospital;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -14,9 +15,12 @@ public class LimiteRemocaoHospital
     private JPanel pcod,pconfirm,psair,principal;
     private BoxLayout box;
     private ActionListener cadListener,sairListener;
+    private ControleHospital objCtrl;
 
-    public LimiteRemocaoHospital()
+    public LimiteRemocaoHospital(ControleHospital pCtrl)
     {
+        objCtrl = pCtrl;
+        
         //Criar text fields
         codigoTF = new JTextField(12);
         

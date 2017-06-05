@@ -1,5 +1,6 @@
 package Limites.LimitePrincipal;
 
+import Controladores.ControlePrincipal;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -13,9 +14,12 @@ public class LimiteTelaLogin
     JButton entrar,sair;
     JTextField login;
     JPasswordField senha;
+    private ControlePrincipal objCtrl;
 
-    public LimiteTelaLogin()
+    public LimiteTelaLogin(ControlePrincipal pCtrl)
     {
+        objCtrl = pCtrl;
+        
         //Criar Jbuttons
         entrar = new JButton("Login");
         entrar.setBorderPainted(false);
@@ -37,7 +41,7 @@ public class LimiteTelaLogin
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                new LimitePrincipal();
+                objCtrl.ExibirInterfacePrincipal();
             }
         };
         entrar.addActionListener(go);

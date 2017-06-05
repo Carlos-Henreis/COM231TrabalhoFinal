@@ -2,6 +2,8 @@ package Limites.DRG;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class LimiteVisualizacaoDRG
@@ -9,11 +11,24 @@ public class LimiteVisualizacaoDRG
     private JTable tabela;
     private JScrollPane painelRolagem;
     private JPanel painel,principal;
+    private JButton sair;
     private JFrame frame;
 
     public LimiteVisualizacaoDRG(String dados[][])
     {
         String nomes[] = {"CODIGO","DESCRIÇAO"};
+        
+        //Criar JButton e adicionar listener
+        sair = new JButton("SAIR");
+        sair.setBackground(new Color(0,0,128));
+        sair.setForeground(Color.white);
+        sair.setBorderPainted(false);
+        sair.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+            }
+        });
         
         //Criar JTable
         tabela = new JTable(dados, nomes);
@@ -35,13 +50,14 @@ public class LimiteVisualizacaoDRG
         principal.add(Box.createVerticalGlue(),BorderLayout.PAGE_START);
         principal.add(Box.createVerticalGlue(),BorderLayout.LINE_START);
         principal.add(Box.createVerticalGlue(),BorderLayout.LINE_END);
-        principal.add(Box.createVerticalGlue(),BorderLayout.PAGE_END);
+        principal.add(sair,BorderLayout.PAGE_END);
         
         //Criar JFRame e definir opcoes
         frame = new JFrame("Listagem dos grupos relacionados de diagnostico");
         frame.add(principal);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setUndecorated(true);
         frame.setLocationRelativeTo(null);
         frame.setAlwaysOnTop(true);
         frame.setVisible(true);

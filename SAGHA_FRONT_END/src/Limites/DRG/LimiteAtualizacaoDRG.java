@@ -1,5 +1,6 @@
 package Limites.DRG;
 
+import Controladores.ControleDrg;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -13,9 +14,12 @@ public class LimiteAtualizacaoDRG
     private JPanel pcod,pdesc,psair,principal;
     private BoxLayout box;
     private ActionListener cadListener,sairListener;
+    private ControleDrg objCtrl;
 
-    public LimiteAtualizacaoDRG()
+    public LimiteAtualizacaoDRG(ControleDrg pCtrl)
     {
+        objCtrl = pCtrl;
+        
         //Criar text fields
         codigoTF = new JTextField(20);
         descricaoTF = new JTextField(20);

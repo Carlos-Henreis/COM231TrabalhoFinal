@@ -1,5 +1,6 @@
 package Limites.DRG;
 
+import Controladores.ControleDrg;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.*;
@@ -14,9 +15,12 @@ public class LimiteCadastroDRG
     private JPanel pcod,pdesc,psair,principal;
     private BoxLayout box;
     private ActionListener cadListener,sairListener;
+    private ControleDrg objCtrl;
 
-    public LimiteCadastroDRG()
+    public LimiteCadastroDRG(ControleDrg pCtrl)
     {
+        objCtrl = pCtrl;
+        
         //Criar text fields
         codigoTF = new JTextField(20);
         descricaoTF = new JTextField(20);

@@ -1,12 +1,17 @@
 package Limites.LimitePrincipal;
 
+import Controladores.ControlePrincipal;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import Limites.AtendimentoDRG.*;
 import Limites.DRG.*;
-import Limites.Hospital.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowStateListener;
 
 public class LimitePrincipal
 {
@@ -16,17 +21,20 @@ public class LimitePrincipal
     private JLabel logotipo;
     private JMenuBar barramenu;
     private JMenu hospital,drg,atendimentodrg;
+    private ControlePrincipal objCtrl;
+    private WindowListener winList;
     
     private final ImageIcon logoIMG = new ImageIcon("img/sagha13.png");
-    
     private final ImageIcon create = new ImageIcon("img/create.png");
     private final ImageIcon delete = new ImageIcon("img/delete.png");
     private final ImageIcon read = new ImageIcon("img/read.png");
     private final ImageIcon update = new ImageIcon("img/update.png");
     
 
-    public LimitePrincipal()
+    public LimitePrincipal(ControlePrincipal pCtrl)
     {
+        objCtrl = pCtrl;
+        
         //Criar JLabel's
         equipe = new JLabel("Developed by: Carlos Henrique Reis, Jean Carlos de Oliveira, Mateus Henrique Toledo, Victor Rodrigues @ All rights reserved. UNIFEI, 2017");
         logotipo = new JLabel(logoIMG);
@@ -39,7 +47,7 @@ public class LimitePrincipal
         cadastrarhospital.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                new LimiteCadastroHospital();
+                objCtrl.getControladorHospitais().interfaceCadastroHospital();
             }
         });
         JMenuItem removerhospital = new JMenuItem("Remover Hospital",delete);
@@ -47,7 +55,7 @@ public class LimitePrincipal
         removerhospital.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                new LimiteRemocaoHospital();
+                objCtrl.getControladorHospitais().interfaceRemocaoHospital();
             }
         });
         JMenuItem atualizarhospital = new JMenuItem("Atualizar dados de Hospital",update);
@@ -55,7 +63,7 @@ public class LimitePrincipal
         atualizarhospital.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                new LimiteAtualizacaoHospital();
+                objCtrl.getControladorHospitais().interfaceAtualizacaoHospital();
             }
         });
         JMenuItem visualizacaohospital = new JMenuItem("Listagem de hospitais",read);
@@ -63,14 +71,7 @@ public class LimitePrincipal
         visualizacaohospital.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                String vet[][] = new String[1][5];
-                vet[0][0] = "da";
-                vet[0][1] = "da";
-                vet[0][2] = "da";
-                vet[0][3] = "da";
-                vet[0][4] = "da";
-                
-                new LimiteVisualizacaoHospital(vet);
+                objCtrl.getControladorHospitais().interfaceListagemHospitais();
             }
         });
         //-> MENUS DE DRG
@@ -79,7 +80,7 @@ public class LimitePrincipal
         cadastrarDrg.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                new LimiteCadastroDRG();
+                objCtrl.getControladorDRG().interfaceCadastroDRG();
             }
         });
         JMenuItem removerDrg = new JMenuItem("Remover DRG",delete);
@@ -87,7 +88,7 @@ public class LimitePrincipal
         removerDrg.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                new LimiteRemocaoDRG();
+                objCtrl.getControladorDRG().interfaceRemocaoDRG();
             }
         });
         JMenuItem visualizarDrg = new JMenuItem("Listagem de DRGs",read);
@@ -95,10 +96,7 @@ public class LimitePrincipal
         visualizarDrg.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                String vet[][] = new String[1][2];
-                vet[0][0] = vet[0][1] = "DAda";
-                
-                new LimiteVisualizacaoDRG(vet);
+                objCtrl.getControladorDRG().interfaceVisualizacaoDRG();
             }
         });
         JMenuItem atualizarDrg = new JMenuItem("Atualizar dados de DRG",update);
@@ -106,7 +104,7 @@ public class LimitePrincipal
         atualizarDrg.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                new LimiteAtualizacaoDRG();
+               objCtrl.getControladorDRG().interfaceAtualizacaoDRG();
             }
         });
         //->MENUS DE ATENDIMENTO A DRG
@@ -131,7 +129,14 @@ public class LimitePrincipal
         visualizarAttDrg.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                new LimiteVisualizacaoAtendimentoDRG(null);
+                String nomes[][] = new String[1][6];
+                nomes[0][0] = "CODIGO DRG";
+                nomes[0][1] = "ID HOSPITAL";
+                nomes[0][2] = "NUMERO ALTAS";
+                nomes[0][3] = "TX MED. COBERTAS";
+                nomes[0][4] = "PAG. MED. TOTAIS";
+                nomes[0][5] = "MED. PAG. MEDICARE";
+                new LimiteVisualizacaoAtendimentoDRG(nomes);
             }
         });
         JMenuItem atualizarAttDrg = new JMenuItem("Atualizar dados de atendimento a DRG",update);
@@ -199,19 +204,55 @@ public class LimitePrincipal
         painel.add(pfinal,BorderLayout.PAGE_END);
         painel.add(central,BorderLayout.CENTER);
         
-        
         //Gerar JFrame e setar configurações
+        this.gerarListenerJFrame();
         frame = new  JFrame("Sistema de apoio à gestão de hospitais americanos - SAGHA");
+        frame.addWindowListener(winList);
+        frame.setSize(800, 600);
         frame.add(painel);
         frame.setJMenuBar(barramenu);
         frame.setBackground(Color.white);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setVisible(true);
     }
     
-    public static void main(String[] args) {
-        new LimitePrincipal();
+    public void gerarListenerJFrame()
+    {
+        winList = new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e)
+            {/*JANELA ABERTA*/}
+
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                //Acionou botao de fechar, devo encerrar essa sessao no BD
+                if(e.getOppositeWindow() == frame)
+                    System.out.println("essa janela");
+                else
+                    System.out.println("outra janela");
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e)
+            {/*APOS MATAR A JANELA*/}
+
+            @Override
+            public void windowIconified(WindowEvent e)
+            {/*JANELA MINIMIZADA*/}
+
+            @Override
+            public void windowDeiconified(WindowEvent e)
+            {/*JANELA MAXIMIZADA*/}
+
+            @Override
+            public void windowActivated(WindowEvent e)
+            {/*JANELA ABERTA*/}
+
+            @Override
+            public void windowDeactivated(WindowEvent e)
+            {/*JANELA SOBREPOSTA OU ESCONDIDA*/}
+        };
     }
 }

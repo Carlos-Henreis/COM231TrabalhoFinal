@@ -1,5 +1,6 @@
 package Limites.Hospital;
 
+import Controladores.ControleHospital;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -13,9 +14,12 @@ public class LimiteAtualizacaoHospital
     private ActionListener cadListener,exitListener;
     private JPanel formulario1,formulario2,pcad,principal,externo1,externo2,cartoes,pbusca;
     private CardLayout card;
+    private ControleHospital objCtrl;
 
-    public LimiteAtualizacaoHospital()
+    public LimiteAtualizacaoHospital(ControleHospital pCtrl)
     {
+        objCtrl = pCtrl;
+        
         //Criar JLabel's
         idJL = new JLabel("ID do hospital:");
         nomeJL = new JLabel("Nome do hospital:");

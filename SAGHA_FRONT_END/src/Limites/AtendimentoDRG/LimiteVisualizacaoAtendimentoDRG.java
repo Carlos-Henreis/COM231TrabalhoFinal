@@ -2,6 +2,8 @@ package Limites.AtendimentoDRG;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class LimiteVisualizacaoAtendimentoDRG
@@ -10,10 +12,23 @@ public class LimiteVisualizacaoAtendimentoDRG
     private JScrollPane painelRolagem;
     private JPanel painel,principal;
     private JFrame frame;
+    private JButton sair;
 
     public LimiteVisualizacaoAtendimentoDRG(String dados[][])
     {
         String nomes[] = {"CODIGO DRG","ID HOSPITAL","NUMERO ALTAS","TX MED. COBERTAS","PAG. MED. TOTAIS","MED. PAG. MEDICARE"};
+        
+        //Criar JButton e adicionar listener
+        sair = new JButton("SAIR");
+        sair.setBackground(new Color(0,0,128));
+        sair.setForeground(Color.white);
+        sair.setBorderPainted(false);
+        sair.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+            }
+        });
         
         //Criar JTable
         tabela = new JTable(dados, nomes);
@@ -34,12 +49,13 @@ public class LimiteVisualizacaoAtendimentoDRG
         principal.add(Box.createVerticalGlue(),BorderLayout.PAGE_START);
         principal.add(Box.createVerticalGlue(),BorderLayout.LINE_START);
         principal.add(Box.createVerticalGlue(),BorderLayout.LINE_END);
-        principal.add(Box.createVerticalGlue(),BorderLayout.PAGE_END);
+        principal.add(sair,BorderLayout.PAGE_END);
         
         //Criar JFRame e definir opcoes
         frame = new JFrame("Listagem do atendimento a DRG's");
         frame.add(principal);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setUndecorated(true);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setLocationRelativeTo(null);
         frame.setAlwaysOnTop(true);

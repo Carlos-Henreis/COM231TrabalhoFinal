@@ -1,5 +1,6 @@
 package Limites.Hospital;
 
+import Controladores.ControleHospital;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -12,9 +13,12 @@ public class LimiteCadastroHospital
     private JTextField idTF,nomeTF,ruaTF,cidadeTF,estadoTF;
     private ActionListener cadListener,exitListener;
     private JPanel formulario,pcad,principal,externo;
+    private ControleHospital objCtrl;
 
-    public LimiteCadastroHospital()
+    public LimiteCadastroHospital(ControleHospital pCtrl)
     {
+        objCtrl = pCtrl;
+        
         //Criar JLabel's
         idJL = new JLabel("ID do hospital:");
         nomeJL = new JLabel("Nome do hospital:");

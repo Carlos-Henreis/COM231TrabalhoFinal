@@ -1,5 +1,6 @@
 package Limites.DRG;
 
+import Controladores.ControleDrg;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -14,9 +15,12 @@ public class LimiteRemocaoDRG
     private JPanel pcod,pconfirm,psair,principal;
     private BoxLayout box;
     private ActionListener cadListener,sairListener;
-
-    public LimiteRemocaoDRG()
+    private ControleDrg objCtrl;
+    
+    public LimiteRemocaoDRG(ControleDrg pCtrl)
     {
+        objCtrl = pCtrl;
+        
         //Criar text fields
         codigoTF = new JTextField(10);
         

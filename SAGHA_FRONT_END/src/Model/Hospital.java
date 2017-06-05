@@ -1,5 +1,5 @@
 package Model;
-// Generated 01/06/2017 18:13:24 by Hibernate Tools 4.3.1
+// Generated 04/06/2017 22:18:06 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -13,23 +13,30 @@ public class Hospital  implements java.io.Serializable {
 
      private int id;
      private String nome;
+     private String rua;
+     private String cidade;
+     private String estado;
      private Set atendimentoDrgs = new HashSet(0);
-     private Endereco endereco;
      private Set hospitaisRegiaos = new HashSet(0);
 
     public Hospital() {
     }
 
 	
-    public Hospital(int id, String nome) {
+    public Hospital(int id, String nome, String rua, String cidade, String estado) {
         this.id = id;
         this.nome = nome;
+        this.rua = rua;
+        this.cidade = cidade;
+        this.estado = estado;
     }
-    public Hospital(int id, String nome, Set atendimentoDrgs, Endereco endereco, Set hospitaisRegiaos) {
+    public Hospital(int id, String nome, String rua, String cidade, String estado, Set atendimentoDrgs, Set hospitaisRegiaos) {
        this.id = id;
        this.nome = nome;
+       this.rua = rua;
+       this.cidade = cidade;
+       this.estado = estado;
        this.atendimentoDrgs = atendimentoDrgs;
-       this.endereco = endereco;
        this.hospitaisRegiaos = hospitaisRegiaos;
     }
    
@@ -47,19 +54,33 @@ public class Hospital  implements java.io.Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
+    public String getRua() {
+        return this.rua;
+    }
+    
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
+    public String getCidade() {
+        return this.cidade;
+    }
+    
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+    public String getEstado() {
+        return this.estado;
+    }
+    
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
     public Set getAtendimentoDrgs() {
         return this.atendimentoDrgs;
     }
     
     public void setAtendimentoDrgs(Set atendimentoDrgs) {
         this.atendimentoDrgs = atendimentoDrgs;
-    }
-    public Endereco getEndereco() {
-        return this.endereco;
-    }
-    
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
     }
     public Set getHospitaisRegiaos() {
         return this.hospitaisRegiaos;

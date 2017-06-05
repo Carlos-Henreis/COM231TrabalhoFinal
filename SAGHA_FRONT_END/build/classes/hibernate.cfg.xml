@@ -8,7 +8,6 @@
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">rootroot</property>
     <mapping resource="Model/HospitaisRegiao.hbm.xml"/>
-    <mapping resource="Model/Endereco.hbm.xml"/>
     <mapping resource="Model/AtendimentoDrg.hbm.xml"/>
     <mapping resource="Model/Drg.hbm.xml"/>
     <mapping resource="Model/Hospital.hbm.xml"/>
