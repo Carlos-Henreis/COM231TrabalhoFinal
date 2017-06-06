@@ -88,6 +88,7 @@ public class LimiteCadastroAtendimentoDRG
         psubdados = new JPanel(new FlowLayout(FlowLayout.CENTER));
         psubid = new JPanel(new GridLayout(3, 1));
         principal = new JPanel();
+        principal.setBorder(BorderFactory.createLineBorder(new Color(0,0,128),2));
         box = new BoxLayout(principal,BoxLayout.Y_AXIS);
         principal.setLayout(box);
 
@@ -124,7 +125,6 @@ public class LimiteCadastroAtendimentoDRG
         principal.add(Box.createVerticalGlue());
         principal.add(Box.createVerticalGlue());
         principal.add(psubdados);
-        principal.setBorder(BorderFactory.createLineBorder(new Color(0,0,128)));
         
         //Criar JFRame e definir opcoes
         frame = new JFrame("Cadastro de atendimento de DRG");

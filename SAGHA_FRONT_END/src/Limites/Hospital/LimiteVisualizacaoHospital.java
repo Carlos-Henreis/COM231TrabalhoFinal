@@ -45,6 +45,7 @@ public class LimiteVisualizacaoHospital
         painel = new JPanel(new BorderLayout(50,50));
         painel.add(painelRolagem,BorderLayout.CENTER);
         principal = new JPanel(new BorderLayout(100, 100));
+        principal.setBorder(BorderFactory.createLineBorder(new Color(0,0,128),2));
         principal.add(painel,BorderLayout.CENTER);
         principal.add(Box.createVerticalGlue(),BorderLayout.PAGE_START);
         principal.add(Box.createVerticalGlue(),BorderLayout.LINE_START);

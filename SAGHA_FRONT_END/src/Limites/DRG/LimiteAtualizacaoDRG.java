@@ -94,7 +94,7 @@ public class LimiteAtualizacaoDRG
         principal.add(Box.createVerticalGlue());
         principal.add(Box.createVerticalGlue());
         principal.add(Box.createVerticalGlue());
-        principal.setBorder(BorderFactory.createLineBorder(new Color(0,0,128)));
+        principal.setBorder(BorderFactory.createLineBorder(new Color(0,0,128),2));
         
         //Criar JFRame e definir opcoes
         frame = new JFrame("Cadastro do grupo relacionado de diagnostico");

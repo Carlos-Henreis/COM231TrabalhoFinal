@@ -107,6 +107,7 @@ public class LimiteAtualizacaoAtendimentoDRG
         psubdados = new JPanel(new FlowLayout(FlowLayout.CENTER));
         psubid = new JPanel(new GridLayout(4, 1));
         principal = new JPanel();
+        principal.setBorder(BorderFactory.createLineBorder(new Color(0,0,128),2));
         box = new BoxLayout(principal,BoxLayout.Y_AXIS);
         card = new CardLayout();
         principal.setLayout(card);
@@ -152,7 +153,6 @@ public class LimiteAtualizacaoAtendimentoDRG
         principal.add(patt,"ATUALIZACAO");
         card.addLayoutComponent(psubdados, "BUSCA");
         card.addLayoutComponent(patt, "ATUALIZACAO");
-        principal.setBorder(BorderFactory.createLineBorder(new Color(0,0,128)));
         
         //Criar JFRame e definir opcoes
         frame = new JFrame("Cadastro de atendimento de DRG");

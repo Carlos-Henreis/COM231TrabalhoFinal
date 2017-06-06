@@ -92,10 +92,10 @@ public class LimiteAtualizacaoHospital
         externo2 = new JPanel();
         BoxLayout box = new BoxLayout(externo1,BoxLayout.Y_AXIS);
         externo1.setLayout(box);
-        externo1.setBorder(BorderFactory.createLineBorder(new Color(0,0,128)));
+        externo1.setBorder(BorderFactory.createLineBorder(new Color(0,0,128),2));
         BoxLayout box2 = new BoxLayout(externo2,BoxLayout.Y_AXIS);
         externo2.setLayout(box2);
-        externo2.setBorder(BorderFactory.createLineBorder(new Color(0,0,128)));
+        externo2.setBorder(BorderFactory.createLineBorder(new Color(0,0,128),2));
         
         card = new CardLayout();
         cartoes = new JPanel(card);

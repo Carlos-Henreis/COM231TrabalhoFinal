@@ -1,6 +1,7 @@
 package Limites.LimitePrincipal;
 
 import Controladores.ControlePrincipal;
+import Limites.HospitalRegiao.LimiteCadastroHospitalRegiao;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +25,7 @@ public class LimitePrincipal
     private final ImageIcon delete = new ImageIcon("img/delete.png");
     private final ImageIcon read = new ImageIcon("img/read.png");
     private final ImageIcon update = new ImageIcon("img/update.png");
+    private final ImageIcon regiao = new ImageIcon("img/local.png");
     
 
     public LimitePrincipal(ControlePrincipal pCtrl)
@@ -67,6 +69,14 @@ public class LimitePrincipal
             @Override
             public void actionPerformed(ActionEvent e) {
                 objCtrl.getControladorHospitais().exibirHospitaisCadastrados();
+            }
+        });
+        JMenuItem cadastrarRegiaoReferencia = new JMenuItem("Cadastrar regiao de referencia",regiao);
+        cadastrarRegiaoReferencia.setBackground(Color.white);
+        cadastrarRegiaoReferencia.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                objCtrl.getControladorHospitaisRegiao().interfaceCadastroHospitalRegiao();
             }
         });
         //-> MENUS DE DRG
@@ -142,6 +152,8 @@ public class LimitePrincipal
         hospital.add(atualizarhospital);
         hospital.addSeparator();
         hospital.add(visualizacaohospital);
+        hospital.addSeparator();
+        hospital.add(cadastrarRegiaoReferencia);
         //-> Menu DRG
         drg.add(cadastrarDrg);
         drg.addSeparator();

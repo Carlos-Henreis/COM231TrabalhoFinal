@@ -67,7 +67,7 @@ public class LimiteCadastroHospital
         externo = new JPanel();
         BoxLayout box = new BoxLayout(externo,BoxLayout.Y_AXIS);
         externo.setLayout(box);
-        externo.setBorder(BorderFactory.createLineBorder(new Color(0,0,128)));
+        externo.setBorder(BorderFactory.createLineBorder(new Color(0,0,128),2));
         
         //Adicionar componentes aos devidos paineis
         pcad.add(cadastrar);
@@ -110,9 +110,14 @@ public class LimiteCadastroHospital
         JOptionPane.showMessageDialog(externo,msg,"Erro na atualizaçao",JOptionPane.ERROR_MESSAGE);
     }
     
+    /**
+     * Exibir mensagem de sucesso de cadastro ao usuario
+     */
     public void mensagemSucesso()
     {
         JOptionPane.showMessageDialog(principal, "Hospital cadastrado!");
+        JOptionPane.showMessageDialog(principal, "Para que esse hospital participe dos relatorios\n"
+                + "cadastre a regiao de referencia no menu Hospital!\n\nObrigado(a)!");
     }
     
     /**

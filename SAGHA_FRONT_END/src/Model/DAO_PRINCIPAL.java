@@ -20,7 +20,7 @@ public class DAO_PRINCIPAL
     {
          //Abrir sessao no BD
         sessao = HibernateUtil.getSessionFactory().openSession();
-        System.out.println("[INFO] - Conexao com sagha estabelecida!");
+        System.out.println("\n\n\n\n[INFO] - Conexao com sagha estabelecida!\n\n");
         
         return sessao;
     }

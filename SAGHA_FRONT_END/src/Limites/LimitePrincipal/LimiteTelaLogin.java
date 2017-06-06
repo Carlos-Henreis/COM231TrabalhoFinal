@@ -66,7 +66,7 @@ public class LimiteTelaLogin
         BoxLayout box = new BoxLayout(sub, BoxLayout.Y_AXIS);
         sub.setLayout(box);
         sub.setBackground(Color.white);
-        sub.setBorder(BorderFactory.createLineBorder(new Color(0,0,128)));
+        sub.setBorder(BorderFactory.createLineBorder(new Color(0,0,128),2));
         
         //Adicionar componentes a seus paineis
         botoes.add(sair);
