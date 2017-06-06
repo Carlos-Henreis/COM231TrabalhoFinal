@@ -23,7 +23,7 @@ public class ControlePrincipal
         DAOPRINCIPAL = new DAO_PRINCIPAL();
         sessao = DAOPRINCIPAL.abrirSessao();
         objCtrlHospitais = new ControleHospital(sessao);
-        objCtrlDrg = new ControleDrg();
+        objCtrlDrg = new ControleDrg(sessao);
        interfaceDeLogin();
     }
     

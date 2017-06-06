@@ -47,7 +47,7 @@ public class LimiteRemocaoDRG
             {
                 //Nesse caso devo pegar o codigo e remover do banco!
                 if(sim.isSelected())
-                    mensagemSucesso();
+                    objCtrl.removerDrg();
                 else
                     mensagemErro("Voce deve confirmar a remoçao!");
             }
@@ -136,6 +136,10 @@ public class LimiteRemocaoDRG
      */
     public void mensagemSucesso()
     {
+        //Limpar formulario
+        codigoTF.setText("");
+        
+        //Mensagem ao usuario
         JOptionPane.showMessageDialog(principal, "DRG removida com sucesso!");
     }
     

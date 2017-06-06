@@ -96,7 +96,7 @@ public class LimitePrincipal
         visualizarDrg.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                objCtrl.getControladorDRG().interfaceVisualizacaoDRG();
+                objCtrl.getControladorDRG().listarDrgs();
             }
         });
         JMenuItem atualizarDrg = new JMenuItem("Atualizar dados de DRG",update);

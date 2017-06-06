@@ -78,7 +78,7 @@ public class DAO_DRG
      * Obtem todas as DRG's cadastrados
      * @return lista de drgs
      */
-    public ArrayList<Drg> listarHospitais()
+    public ArrayList<Drg> listarDRGs()
     {
         ArrayList<Drg> lista = new ArrayList<>();
         

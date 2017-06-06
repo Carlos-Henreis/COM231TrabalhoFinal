@@ -44,8 +44,7 @@ public class LimiteAtualizacaoDRG
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                //Nesse caso devo pegar os dados dos campos de texto
-                System.out.println("COD: "+codigoTF.getText()+" | DESC:"+descricaoTF.getText());
+                objCtrl.atualizarDadosDrg();
             }
         };
         
