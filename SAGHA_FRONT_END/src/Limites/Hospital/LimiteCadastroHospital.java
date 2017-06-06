@@ -47,7 +47,7 @@ public class LimiteCadastroHospital
         cadListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("CADASTRAR");
+                objCtrl.cadastrarHospital();
             }
         };
         cadastrar.addActionListener(cadListener);
@@ -122,7 +122,7 @@ public class LimiteCadastroHospital
      */
     public String[] getDados() throws Exception
     {
-        String form[] = new String[4];
+        String form[] = new String[5];
         
         if(idTF.getText().isEmpty() ||cidadeTF.getText().isEmpty() ||  estadoTF.getText().isEmpty() || nomeTF.getText().isEmpty() ||  ruaTF.getText().isEmpty())
             throw new Exception("Voce deve informar todos os campos");
@@ -134,5 +134,17 @@ public class LimiteCadastroHospital
         form[4] = estadoTF.getText();
         
         return form;
+    }
+    
+    /**
+     * Metodo que limpa os campos de entrada de texto da interface
+     */
+    public void limparFormulario()
+    {
+        idTF.setText("");
+        nomeTF.setText("");
+        ruaTF.setText("");
+        cidadeTF.setText("");
+        estadoTF.setText("");
     }
 }

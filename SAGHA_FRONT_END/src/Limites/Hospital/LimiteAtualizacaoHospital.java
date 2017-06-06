@@ -1,6 +1,7 @@
 package Limites.Hospital;
 
 import Controladores.ControleHospital;
+import Model.Hospital;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -13,6 +14,7 @@ public class LimiteAtualizacaoHospital
     private JTextField idTF,nomeTF,ruaTF,cidadeTF,estadoTF;
     private ActionListener cadListener,exitListener;
     private JPanel formulario1,formulario2,pcad,principal,externo1,externo2,cartoes,pbusca;
+    private Hospital h;
     private CardLayout card;
     private ControleHospital objCtrl;
 
@@ -59,12 +61,12 @@ public class LimiteAtualizacaoHospital
                 if(e.getSource().equals(cadastrar))
                 {
                     //BOTAO DE CADASTRO ACIONADO
-                    card.show(cartoes,"BUSCA");
+                    objCtrl.atualizarDadosHospital_Parte2();
                 }
                 else
                 {
                     //BOTAO DE BUSCA ACIONADO
-                    card.show(cartoes,"ATUALIZACAO");
+                    objCtrl.parte1_buscaAtualizacao();
                 }
             }
         };
@@ -155,9 +157,13 @@ public class LimiteAtualizacaoHospital
         JOptionPane.showMessageDialog(cartoes,msg,"Erro na atualizaçao",JOptionPane.ERROR_MESSAGE);
     }
     
+    /**
+     * Exibe mensagem de sucesso no cadastro e reseta interface para DEFAULT
+     */
     public void mensagemSucesso()
     {
         JOptionPane.showMessageDialog(principal, "Dados do hospital atualizados!");
+        card.show(cartoes,"BUSCA");
     }
     
     /**
@@ -175,18 +181,55 @@ public class LimiteAtualizacaoHospital
      * @return Novos dados do hospital
      * @throws Exception Caso o usuario nao informe todos os campos
      */
-    public String[] getDados() throws Exception
+    public Hospital getDadosAtualizados() throws Exception
     {
         String form[] = new String[4];
         
+        //Verificar se todos os dados foram preenchidos
         if(cidadeTF.getText().isEmpty() ||  estadoTF.getText().isEmpty() || nomeTF.getText().isEmpty() ||  ruaTF.getText().isEmpty())
-            throw new Exception("Voce deve informar todos os campos");
+            throw new Exception("Voce deve informar todos os campos!");
         
-        form[0] = nomeTF.getText();
-        form[1] = ruaTF.getText();
-        form[2] = cidadeTF.getText();
-        form[3] = estadoTF.getText();
+        //Verificar se o campo estado foi preenchido direito
+        if(estadoTF.getText().length() > 2)
+            throw new Exception("O estado e um campo numerico com no maximo 2 caracteres!");
         
-        return form;
+        //Atualizar dados do hospital
+        h.setNome(nomeTF.getText());
+        h.setRua(ruaTF.getText());
+        h.setCidade(cidadeTF.getText());
+        h.setEstado(estadoTF.getText());
+        
+        return h;
+    }
+    
+    /**
+     * Metodo que seta os dados vindos da busca na interface de autualizacao de hospital
+     * @param h2 dados do hospital obtido
+     */
+    public void interfaceAtualizacaoHospital(Hospital h2)
+    {
+        //Manter hospital que esta sendo atualizado
+        h = h2;
+        
+        //Inserir dados desse hospital na interface
+        nomeTF.setText(h.getNome());
+        ruaTF.setText(h.getRua());
+        cidadeTF.setText(h.getCidade());
+        estadoTF.setText(h.getEstado());
+        
+        //Atualizar interface
+        card.show(cartoes,"ATUALIZACAO");
+    }
+    
+    /**
+     * Metodo que limpa as entradas de texto da interface
+     */
+    public void limparEntradaDados()
+    {
+        idTF.setText("");
+        nomeTF.setText("");
+        ruaTF.setText("");
+        cidadeTF.setText("");
+        estadoTF.setText("");
     }
 }

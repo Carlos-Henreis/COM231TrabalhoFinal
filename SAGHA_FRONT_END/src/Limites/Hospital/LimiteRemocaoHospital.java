@@ -47,7 +47,7 @@ public class LimiteRemocaoHospital
             {
                 //Nesse caso devo pegar o codigo e remover do banco!
                 if(sim.isSelected())
-                    mensagemSucesso();
+                    objCtrl.removerHospital();
                 else
                     mensagemErro("Confirme a remoçao!");
             }
@@ -137,5 +137,25 @@ public class LimiteRemocaoHospital
     public void mensagemSucesso()
     {
         JOptionPane.showMessageDialog(principal, "Hospital removido com sucesso!");
+    }
+    
+    /**
+     * Metodo que retorna o ID do hospital informado pelo usuario
+     * @return id do hospital
+     * @throws Exception caso o campo informado nao seja numerico
+     */
+    public int getID() throws Exception
+    {
+        return Integer.parseInt(codigoTF.getText());
+    }
+    
+    /**
+     * Metodo que deixa a interface no seu padrao DEFAULT (inicial)
+     */
+    public void limparEntradaTexto()
+    {
+        codigoTF.setText("");
+        sim.setForeground(Color.black);
+        sim.setSelected(false);
     }
 }

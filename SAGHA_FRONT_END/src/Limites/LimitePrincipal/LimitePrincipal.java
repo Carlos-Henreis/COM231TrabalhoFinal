@@ -71,7 +71,7 @@ public class LimitePrincipal
         visualizacaohospital.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                objCtrl.getControladorHospitais().interfaceListagemHospitais();
+                objCtrl.getControladorHospitais().exibirHospitaisCadastrados();
             }
         });
         //-> MENUS DE DRG
@@ -226,13 +226,7 @@ public class LimitePrincipal
 
             @Override
             public void windowClosing(WindowEvent e)
-            {
-                //Acionou botao de fechar, devo encerrar essa sessao no BD
-                if(e.getOppositeWindow() == frame)
-                    System.out.println("essa janela");
-                else
-                    System.out.println("outra janela");
-            }
+            {/*QUANDO JANELAS ESTAO FECHANDO -- ESSE METODO*/}
 
             @Override
             public void windowClosed(WindowEvent e)
