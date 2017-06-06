@@ -16,7 +16,7 @@ public class LimiteVisualizacaoAtendimentoDRG
 
     public LimiteVisualizacaoAtendimentoDRG(String dados[][])
     {
-        String nomes[] = {"CODIGO DRG","ID HOSPITAL","NUMERO ALTAS","TX MED. COBERTAS","PAG. MED. TOTAIS","MED. PAG. MEDICARE"};
+        String nomes[] = {"ID-NOME HOSPITAL","COD-DEFINICAO DRG","NUMERO ALTAS","TX MED. COBERTAS","PAG. MED. TOTAIS","MED. PAG. MEDICARE"};
         
         //Criar JButton e adicionar listener
         sair = new JButton("SAIR");

@@ -5,13 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import Limites.AtendimentoDRG.*;
-import Limites.DRG.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.awt.event.WindowStateListener;
 
 public class LimitePrincipal
 {
@@ -113,15 +108,7 @@ public class LimitePrincipal
         cadastrarAttDrg.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                new LimiteCadastroAtendimentoDRG();
-            }
-        });
-        JMenuItem removerAttDrg = new JMenuItem("Remover atendimento de DRG",delete);
-        removerAttDrg.setBackground(Color.white);
-        removerAttDrg.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(central,"A remoçao nao pode ser feita de forma direta!");
+                objCtrl.getControladorAtendimentoDRG().interfaceCadastroAtendimentoDRG();
             }
         });
         JMenuItem visualizarAttDrg = new JMenuItem("Listagem de atendimento a DRGs",read);
@@ -129,14 +116,7 @@ public class LimitePrincipal
         visualizarAttDrg.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nomes[][] = new String[1][6];
-                nomes[0][0] = "CODIGO DRG";
-                nomes[0][1] = "ID HOSPITAL";
-                nomes[0][2] = "NUMERO ALTAS";
-                nomes[0][3] = "TX MED. COBERTAS";
-                nomes[0][4] = "PAG. MED. TOTAIS";
-                nomes[0][5] = "MED. PAG. MEDICARE";
-                new LimiteVisualizacaoAtendimentoDRG(nomes);
+                objCtrl.getControladorAtendimentoDRG().exibirAtendimentosDRG();
             }
         });
         JMenuItem atualizarAttDrg = new JMenuItem("Atualizar dados de atendimento a DRG",update);
@@ -144,7 +124,7 @@ public class LimitePrincipal
         atualizarAttDrg.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                new LimiteAtualizacaoAtendimentoDRG();
+                objCtrl.getControladorAtendimentoDRG().interfaceAtualizacaoAtendimentoDRG();
             }
         });
         
@@ -172,8 +152,6 @@ public class LimitePrincipal
         drg.add(visualizarDrg);
         //->Menu Atendimento a DRG
         atendimentodrg.add(cadastrarAttDrg);
-        atendimentodrg.addSeparator();
-        atendimentodrg.add(removerAttDrg);
         atendimentodrg.addSeparator();
         atendimentodrg.add(atualizarAttDrg);
         atendimentodrg.addSeparator();

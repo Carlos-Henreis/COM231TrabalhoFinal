@@ -1,5 +1,7 @@
 package Limites.AtendimentoDRG;
 
+import Controladores.ControleAtendimentoDRG;
+import Model.AtendimentoDrg;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -14,10 +16,14 @@ public class LimiteAtualizacaoAtendimentoDRG
     private JPanel pbusca,patt;
     private BoxLayout box;
     private CardLayout card;
+    private AtendimentoDrg atend;
     private ActionListener cadListener,sairListener,buscaListener;
+    private ControleAtendimentoDRG objCtrl;
 
-    public LimiteAtualizacaoAtendimentoDRG()
+    public LimiteAtualizacaoAtendimentoDRG(ControleAtendimentoDRG pCtrl)
     {
+        objCtrl = pCtrl;
+        
         //Criar text fields
         codigoTF = new JTextField(20);
         idHospitalTF = new JTextField(20);
@@ -58,8 +64,7 @@ public class LimiteAtualizacaoAtendimentoDRG
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                //Nesse caso devo acionar o controlador para realizar att no BD
-                card.show(principal,"BUSCA");
+                objCtrl.atualizacaoParte2_CADASTRO();
             }
         };
         
@@ -75,10 +80,7 @@ public class LimiteAtualizacaoAtendimentoDRG
         buscaListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Ao acionar a busca eu devo Buscar os dados no BD
-                //Se encontrar pulo para tela de att
-                //Senao uso JOptionPane e mensagem   
-                AtualizarInterface(55, 90,(float)89.9997, 1247);
+                objCtrl.atualizacaoParte1_BUSCA();
             }
         };
         
@@ -162,17 +164,93 @@ public class LimiteAtualizacaoAtendimentoDRG
         frame.setVisible(true);
     }
     
-    public void AtualizarInterface(int numAltas,float taxasMedCobertas,float pgmediostotais,float mediapagMedicare)
+    /**
+     * Metodo que exibe uma mensagem de erro ao usuario
+     * @param msg Mensagem que sera exibida na interface
+     */
+    public void mensagemErro(String msg)
     {
+        JOptionPane.showMessageDialog(principal, msg, "Informaçao do sistema", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    /**
+     * Mensagem de confirmaçao de atualizacao ao usuario
+     */
+    public void mensagemSucesso()
+    {
+        JOptionPane.showMessageDialog(principal, "Atendimento de DRG atualizado com sucesso!");
+        card.show(principal,"BUSCA");
+    }
+    
+    /**
+     * Limpar os dados presentes nos campos de texto (usado apos atualizaco com sucesso)
+     */
+    public void limparFormulario()
+    {
+        codigoTF.setText("");
+        idHospitalTF.setText("");
+        numeroAltasTF.setText("");
+        taxasMediasTF.setText("");
+        pagmediosTF.setText("");
+        mediapagTF.setText("");
+    }
+    
+    /**
+     * Obter dados para busca de atendimento de DRG
+     * @return formulario com a ID do atendimento
+     * @throws Exception caso os dados nao estejam seguindo os tipos corretos
+     */
+    public String[] getIdAtendimento() throws Exception
+    {
+        String id[] = new String[2];
+        
+        id[0] = ""+Short.parseShort(codigoTF.getText());
+        id[1] = ""+Integer.parseInt(idHospitalTF.getText());
+        
+        return id;
+    }
+    
+    /**
+     * Recebe o atendimento a DRG buscado e seta seus dados na interface
+     * @param att Atendimento a DRG que o usuario esta buscando
+     */
+    public void AtualizarInterface(AtendimentoDrg att)
+    {
+        atend = att;
+        
         //Inserir valores atuais nos campos de texto
-        numeroAltasTF.setText(""+numAltas);
-        taxasMediasTF.setText(""+taxasMedCobertas);
-        mediapagTF.setText(""+mediapagMedicare);
-        pagmediosTF.setText(""+pgmediostotais);
+        numeroAltasTF.setText(""+att.getNumeroaltas());
+        taxasMediasTF.setText(""+att.getTaxasmediascobertas());
+        mediapagTF.setText(""+att.getMediapagamentosmedicare());
+        pagmediosTF.setText(""+att.getPagamentosmediostotais());
         
         //Atualizar a interface
         frame.setSize(800, 250);
         frame.setLocationRelativeTo(null);
         card.show(principal, "ATUALIZACAO");
+    }
+    
+    /**
+     * Metodo que retorna o Atendimento a DRg com os novos dados vindos da interface
+     * @return novo atendimento a DRG
+     * @throws Exception Caso dado faltante ou dado em formato diferente do esperado
+     */
+    public AtendimentoDrg getAtendimentoAtualizado() throws Exception
+    {
+        if(numeroAltasTF.getText().isEmpty() || taxasMediasTF.getText().isEmpty() || mediapagTF.getText().isEmpty() || pagmediosTF.getText().isEmpty())
+            throw new Exception("Preencha todos os dados do atendimento!");
+        
+        //Ao fazer o typecast de String para os tipos numericos
+        //Pode ser disparada alguma outra excessao
+        try{
+            atend.setNumeroaltas(Short.parseShort(numeroAltasTF.getText()));
+            atend.setTaxasmediascobertas(Float.parseFloat(taxasMediasTF.getText()));
+            atend.setMediapagamentosmedicare(Float.parseFloat(mediapagTF.getText()));
+            atend.setPagamentosmediostotais(Float.parseFloat(pagmediosTF.getText()));
+        }catch(Exception exc){
+            throw new Exception("Informe os dados no formato correto!");
+        }
+        
+        return atend;
     }
 }

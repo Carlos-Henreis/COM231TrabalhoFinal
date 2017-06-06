@@ -2,7 +2,6 @@ package Controladores;
 
 import Limites.LimitePrincipal.*;
 import Model.DAO_PRINCIPAL;
-import Controladores.*;
 import org.hibernate.*;
 
 public class ControlePrincipal
@@ -11,6 +10,7 @@ public class ControlePrincipal
     private LimitePrincipal limPrincipal;
     private ControleHospital objCtrlHospitais;
     private ControleDrg objCtrlDrg;
+    private ControleAtendimentoDRG objCtrlAttDrg;
     private Session sessao;
     private DAO_PRINCIPAL DAOPRINCIPAL;
     
@@ -20,17 +20,23 @@ public class ControlePrincipal
     
     public ControlePrincipal()
     {
+        //Conexao com banco
         DAOPRINCIPAL = new DAO_PRINCIPAL();
         sessao = DAOPRINCIPAL.abrirSessao();
+        
+        //Criar controladores
         objCtrlHospitais = new ControleHospital(sessao);
         objCtrlDrg = new ControleDrg(sessao);
-       interfaceDeLogin();
+        objCtrlAttDrg = new ControleAtendimentoDRG(sessao);
+        
+        //Iniciar interface parao usuario
+        this.interfaceDeLogin();
     }
     
     /**
      * Metodo que exibe a primeira interface ao usuario, a interface de login
      */
-    public void interfaceDeLogin()
+    public final void interfaceDeLogin()
     {
         limLogin = new LimiteTelaLogin(this);
     }
@@ -73,5 +79,10 @@ public class ControlePrincipal
     public ControleDrg getControladorDRG()
     {
         return objCtrlDrg;
+    }
+    
+    public ControleAtendimentoDRG getControladorAtendimentoDRG()
+    {
+        return objCtrlAttDrg;
     }
 }

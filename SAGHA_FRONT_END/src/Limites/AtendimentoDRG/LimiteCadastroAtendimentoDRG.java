@@ -1,17 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Limites.AtendimentoDRG;
 
+import Controladores.ControleAtendimentoDRG;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
 /**
  *
- * @author mateus
+ * @author DESENVOLVEDORES SAGHA
  */
 public class LimiteCadastroAtendimentoDRG
 {
@@ -22,9 +18,12 @@ public class LimiteCadastroAtendimentoDRG
     private JPanel pcod,pcad,pid,pnumaltas,ptxmedias,ppagmedios,pmediapg,principal,pdados,pidentificadores,psubdados,psubid;
     private BoxLayout box;
     private ActionListener cadListener,sairListener;
+    private ControleAtendimentoDRG objCtrl;
 
-    public LimiteCadastroAtendimentoDRG()
+    public LimiteCadastroAtendimentoDRG(ControleAtendimentoDRG pCtrl)
     {
+        objCtrl = pCtrl;
+        
         //Criar text fields
         codigoTF = new JTextField(20);
         idHospitalTF = new JTextField(20);
@@ -57,8 +56,7 @@ public class LimiteCadastroAtendimentoDRG
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                //Nesse caso devo pegar os dados dos campos de texto
-                mensagemSucesso();
+                objCtrl.cadastrarAtendimentoDRG();
             }
         };
         
