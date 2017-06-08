@@ -13,6 +13,6 @@ create table gerente
 	nome varchar(64),
 	cpf char(11) primary key,
 	senha char(8),
-	ihhospital int,
-	foreign key (idhospital) references hospital on delete cascade
+	idhospital int,
+	foreign key (idhospital) references hospital(id) on delete cascade
 );
