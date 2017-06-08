@@ -6,6 +6,7 @@ import org.hibernate.*;
 
 public class ControlePrincipal
 {
+    private SaghaDashboard limSagha;
     private LimiteTelaLogin limLogin;
     private LimitePrincipal limPrincipal;
     private ControleHospital objCtrlHospitais;
@@ -16,8 +17,8 @@ public class ControlePrincipal
     private DAO_PRINCIPAL DAOPRINCIPAL;
     
     //Definir constantes de login
-    public final String USUARIO_DE_HOSPITAL = "USUARIO_HOSPITAL";
-    public final String AGENTE_ALTO_SAUDE = "AGENTE_DA_ORG_SAUDE";
+    public final String USUARIO_DE_HOSPITAL = "USUARIO";
+    public final String AGENTE_ALTO_SAUDE = "AGENTE";
     
     public ControlePrincipal()
     {
@@ -32,7 +33,7 @@ public class ControlePrincipal
         objCtrlHospReg = new ControleHospitaisRegiao(sessao);
         
         //Iniciar interface parao usuario
-        this.interfaceDeLogin();
+        this.iniciarSaghaDashboard();
     }
     
     /**
@@ -44,14 +45,22 @@ public class ControlePrincipal
     }
     
     /**
+     * Iniciar sistema sagha no dashboard
+     */
+    public final void iniciarSaghaDashboard()
+    {
+        limSagha = new SaghaDashboard(this);
+    }
+    
+    /**
      * Ao usuario acionar botao de login, esse metodo verifica se o usuario existe
      * @param login Identificador do usuario
      * @param senha Senha do usuario no sistema
      * @return String que indica o tipo de usuario
      */
-    public String login(String login,String senha)
+    public String[] login(String login,String senha)
     {
-        return AGENTE_ALTO_SAUDE;
+        return DAOPRINCIPAL.realizarLogin(login, senha);
     }
     
     /**
