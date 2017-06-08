@@ -6,6 +6,7 @@ import org.hibernate.*;
 
 public class ControlePrincipal
 {
+    private SaghaDashboard limSagha;
     private LimiteTelaLogin limLogin;
     private LimitePrincipal limPrincipal;
     private ControleHospital objCtrlHospitais;
@@ -32,7 +33,7 @@ public class ControlePrincipal
         objCtrlHospReg = new ControleHospitaisRegiao(sessao);
         
         //Iniciar interface parao usuario
-        this.interfaceDeLogin();
+        this.iniciarSaghaDashboard();
     }
     
     /**
@@ -41,6 +42,14 @@ public class ControlePrincipal
     public final void interfaceDeLogin()
     {
         limLogin = new LimiteTelaLogin(this);
+    }
+    
+    /**
+     * Iniciar sistema sagha no dashboard
+     */
+    public final void iniciarSaghaDashboard()
+    {
+        limSagha = new SaghaDashboard(this);
     }
     
     /**
