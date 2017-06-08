@@ -58,9 +58,9 @@ public class ControlePrincipal
      * @param senha Senha do usuario no sistema
      * @return String que indica o tipo de usuario
      */
-    public String login(String login,String senha)
+    public String[] login(String login,String senha)
     {
-        return AGENTE_ALTO_SAUDE;
+        return DAOPRINCIPAL.realizarLogin(login, senha);
     }
     
     /**

@@ -40,8 +40,13 @@ public class LimiteTelaLogin
         ActionListener go  = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                objCtrl.ExibirInterfacePrincipal();
+                String dados[] = obterDadosInterface();
+                
+                String form[] = objCtrl.login(dados[0],dados[1]);
+                if(form != null)
+                    sucessoLogin(form[0]);
+                else
+                    mensagemErro();
             }
         };
         entrar.addActionListener(go);
@@ -94,5 +99,38 @@ public class LimiteTelaLogin
         frame.setVisible(true);
     }
     
+    /**
+     * Metodo para ser executado apos login do sistema
+     */
+    public void sucessoLogin(String nomeusuario)
+    {
+        JOptionPane.showMessageDialog(frame,"Bem vindo ao SAGHA Sr(a). "+nomeusuario+"!");
+        
+        frame.dispose();
+        objCtrl.ExibirInterfacePrincipal();
+    }
     
+    /**
+     * Exibir mensagem de erro ao usuario
+     */
+    public void mensagemErro()
+    {
+        JOptionPane.showMessageDialog(frame,"Dados de usuario invalidos!","Informaçao do sistema",JOptionPane.ERROR_MESSAGE);
+    }
+    
+    /**
+     * Obter dados da interface de usuario
+     * @return login e senha
+     */
+    public String[] obterDadosInterface()
+    {        
+        if(login.getText().isEmpty() || senha.getText().isEmpty())
+        {
+            JOptionPane.showMessageDialog(frame,"Informe todos os campos!");            
+            return null;
+        }
+        
+        String form[] = {login.getText(),senha.getText()};
+        return form;
+    }
 }

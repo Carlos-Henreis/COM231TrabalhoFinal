@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.Iterator;
+import javax.swing.JOptionPane;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -12,14 +14,31 @@ public class DAO_PRINCIPAL
     {
     }
     
-    public String[] realizarLogin()
+    /**
+     * Metodo para validar login de usuario
+     * @param login login do usuario
+     * @param senha senha do usuario
+     * @return string com dados ou nulo, caso nao encontrado
+     */
+    public String[] realizarLogin(String login,String senha)
     {
         //p1 nome,p2 funcao
         String form[] = new String[2];
+
+        Iterator it = sessao.createQuery("from Usuarios").list().iterator();
+        while(it.hasNext())
+        {
+            Usuarios us = (Usuarios) it.next();
+
+            if(us.getId().getLogin().equals(login) && us.getId().getSenha().equals(senha))
+            {
+                form[0] = us.getNome();
+                form[1] = us.getFuncao();
+                return form;
+            }
+        }
         
-        
-        
-        return form;
+        return null;
     }
     
     /**

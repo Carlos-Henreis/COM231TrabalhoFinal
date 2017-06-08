@@ -64,7 +64,7 @@ public class DAO_HOSPITAL
         Hospital h;
         
         //Buscar o Hospital p no banco
-        Iterator it = sessao.createQuery("from Hospital where id = "+id).list().iterator();
+        Iterator it = sessao.createQuery("from Hospital where login = '"+id).list().iterator();
         if(it.hasNext())
         {
             h = (Hospital) it.next();
