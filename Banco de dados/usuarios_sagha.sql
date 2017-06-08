@@ -1,9 +1,18 @@
-create table usuarios
+create table agente
 (
 	nome varchar(64),
 	cpf char(11) primary key,
-	funcao varchar(16),
 	senha char(8)
 );
 
-insert into usuarios values('Jean Carlos','00000000001','GERENTE','JEAN'),('Victor Rodrigues','00000000002','AGENTE','VICTOR'),('Mario mandzukic','00000000003','GERENTE','MARIO'),('Carlos Henrique','00000000004','GERENTE','CARLOS');
+insert into agente values('Jean Carlos','00000000001','JEAN'),('Victor Rodrigues','00000000002','VICTOR'),
+	('Mario mandzukic','00000000003','MARIO'),('Carlos Henrique','00000000004','GERENTE','CARLOS');
+
+create table gerente
+(
+	nome varchar(64),
+	cpf char(11) primary key,
+	senha char(8),
+	ihhospital int,
+	foreign key (idhospital) references hospital on delete cascade
+);
