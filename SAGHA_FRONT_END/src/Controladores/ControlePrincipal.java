@@ -17,8 +17,8 @@ public class ControlePrincipal
     private DAO_PRINCIPAL DAOPRINCIPAL;
     
     //Definir constantes de login
-    public final String USUARIO_DE_HOSPITAL = "USUARIO_HOSPITAL";
-    public final String AGENTE_ALTO_SAUDE = "AGENTE_DA_ORG_SAUDE";
+    public final String USUARIO_DE_HOSPITAL = "USUARIO";
+    public final String AGENTE_ALTO_SAUDE = "AGENTE";
     
     public ControlePrincipal()
     {

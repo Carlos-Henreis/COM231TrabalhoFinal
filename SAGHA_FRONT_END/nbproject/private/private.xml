@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/mateus/COM231TrabalhoFinal/SAGHA_FRONT_END/src/Limites/LimitePrincipal/SaghaDashboard.java</file>
-            <file>file:/home/mateus/COM231TrabalhoFinal/SAGHA_FRONT_END/src/Controladores/ControlePrincipal.java</file>
+            <file>file:/home/mateus/SAGHA_FRONT_END/src/Model/AtendimentoDrg.java</file>
+            <file>file:/home/mateus/SAGHA_FRONT_END/src/hibernate.cfg.xml</file>
+            <file>file:/home/mateus/SAGHA_FRONT_END/src/hibernatereveng.xml</file>
+            <file>file:/home/mateus/SAGHA_FRONT_END/src/Controladores/ControleAtendimentoDRG.java</file>
         </group>
     </open-files>
 </project-private>

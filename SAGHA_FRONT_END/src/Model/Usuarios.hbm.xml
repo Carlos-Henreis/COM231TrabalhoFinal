@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 08/06/2017 15:34:03 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Model.Usuarios" table="usuarios" catalog="sagha" optimistic-lock="version">
+        <composite-id name="id" class="Model.UsuariosId">
+            <key-property name="login" type="string">
+                <column name="login" length="16" />
+            </key-property>
+            <key-property name="senha" type="string">
+                <column name="senha" length="8" />
+            </key-property>
+        </composite-id>
+        <property name="nome" type="string">
+            <column name="nome" length="64" />
+        </property>
+        <property name="cpf" type="string">
+            <column name="cpf" length="11" unique="true" />
+        </property>
+        <property name="funcao" type="string">
+            <column name="funcao" length="16" />
+        </property>
+    </class>
+</hibernate-mapping>

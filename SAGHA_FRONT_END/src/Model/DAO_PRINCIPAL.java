@@ -12,6 +12,16 @@ public class DAO_PRINCIPAL
     {
     }
     
+    public String[] realizarLogin()
+    {
+        //p1 nome,p2 funcao
+        String form[] = new String[2];
+        
+        
+        
+        return form;
+    }
+    
     /**
      * Abrir sessao no banco de dados
      * @return Sessao aberta para demais DAO's
