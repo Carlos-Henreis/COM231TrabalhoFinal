@@ -1,7 +1,6 @@
 package Model;
 
-import java.util.Iterator;
-import javax.swing.JOptionPane;
+import java.util.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -25,7 +24,7 @@ public class DAO_PRINCIPAL
         //p1 nome,p2 funcao
         String form[] = new String[2];
 
-        Iterator it = sessao.createQuery("from Usuarios").list().iterator();
+        /*Iterator it = sessao.createQuery("from Usuarios").list().iterator();
         while(it.hasNext())
         {
             Usuarios us = (Usuarios) it.next();
@@ -36,7 +35,7 @@ public class DAO_PRINCIPAL
                 form[1] = us.getFuncao();
                 return form;
             }
-        }
+        }*/
         
         return null;
     }

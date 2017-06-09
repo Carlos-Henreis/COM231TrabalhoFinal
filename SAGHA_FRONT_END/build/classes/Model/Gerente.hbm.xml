@@ -7,45 +7,46 @@
 <hibernate-mapping>
 
 <class
-    name="Model.Drg"
-    table="drg"
+    name="Model.Gerente"
+    table="gerente"
     catalog="sagha"
     optimistic-lock="version"
 >
 
 	<id 
-        name="codigo"
-        type="short"
+        name="cpf"
+        type="string"
     >
     
-<column name="codigo" />
+<column name="cpf" length="11" />
 	    <generator class="assigned" />
     </id>
 
 
 
 
+    <many-to-one
+	    name="hospital"
+	    class="Model.Hospital"
+	    
+        fetch="select"
+    >
+<column name="idhospital" />
+   </many-to-one>
     <property
-        name="definicao"
+        name="nome"
 	    type="string"
     >
-<column name="definicao" length="128" not-null="true" />
+<column name="nome" length="64" />
   </property>
 
+    <property
+        name="senha"
+	    type="string"
+    >
+<column name="senha" length="8" />
+  </property>
 
-	<set name="atendimentoDrgs"
-table="atendimento_drg"
-	inverse="true"
-	lazy="true"	 		
-	 fetch="select"
-	>
-		<key
-		> 
-<column name="codigodrg" not-null="true" />
-		</key>
-<one-to-many class="Model.AtendimentoDrg"
-/>
-	</set>
 
 </class>
 

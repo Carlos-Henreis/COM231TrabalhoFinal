@@ -1,5 +1,5 @@
 package Model;
-// Generated 08/06/2017 15:34:03 by Hibernate Tools 4.3.1
+// Generated 08/06/2017 20:47:30 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -17,6 +17,7 @@ public class Hospital  implements java.io.Serializable {
      private String cidade;
      private String estado;
      private Set atendimentoDrgs = new HashSet(0);
+     private Set gerentes = new HashSet(0);
      private Set hospitaisRegiaos = new HashSet(0);
 
     public Hospital() {
@@ -30,13 +31,14 @@ public class Hospital  implements java.io.Serializable {
         this.cidade = cidade;
         this.estado = estado;
     }
-    public Hospital(int id, String nome, String rua, String cidade, String estado, Set atendimentoDrgs, Set hospitaisRegiaos) {
+    public Hospital(int id, String nome, String rua, String cidade, String estado, Set atendimentoDrgs, Set gerentes, Set hospitaisRegiaos) {
        this.id = id;
        this.nome = nome;
        this.rua = rua;
        this.cidade = cidade;
        this.estado = estado;
        this.atendimentoDrgs = atendimentoDrgs;
+       this.gerentes = gerentes;
        this.hospitaisRegiaos = hospitaisRegiaos;
     }
    
@@ -81,6 +83,13 @@ public class Hospital  implements java.io.Serializable {
     
     public void setAtendimentoDrgs(Set atendimentoDrgs) {
         this.atendimentoDrgs = atendimentoDrgs;
+    }
+    public Set getGerentes() {
+        return this.gerentes;
+    }
+    
+    public void setGerentes(Set gerentes) {
+        this.gerentes = gerentes;
     }
     public Set getHospitaisRegiaos() {
         return this.hospitaisRegiaos;
