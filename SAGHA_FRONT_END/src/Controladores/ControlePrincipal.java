@@ -1,6 +1,7 @@
 package Controladores;
 
 import Limites.LimitePrincipal.*;
+import Limites.Usuarios.*;
 import Model.DAO_PRINCIPAL;
 import org.hibernate.*;
 
@@ -33,7 +34,7 @@ public class ControlePrincipal
         objCtrlHospReg = new ControleHospitaisRegiao(sessao);
         
         //Iniciar interface parao usuario
-        this.iniciarSaghaDashboard();
+        this.interfaceDeLogin();
     }
     
     /**
@@ -44,12 +45,24 @@ public class ControlePrincipal
         limLogin = new LimiteTelaLogin(this);
     }
     
-    /**
-     * Iniciar sistema sagha no dashboard
-     */
-    public final void iniciarSaghaDashboard()
+    public void interfaceCadastroUsuario()
     {
-        limSagha = new SaghaDashboard(this);
+        new LimiteCadastroUsuarios(this);
+    }
+    
+    public void interfaceRemocaoUsuario()
+    {
+        new LimiteRemocaoUsuario(this);
+    }
+    
+    public void interfaceVisualizacaoUsuarios()
+    {
+        String form[][] = new String[1][3];
+        form[0][0] = "Vitor";
+        form[0][1] = "Vitor";
+        form[0][2] = "Vitor";
+        
+        new LimiteVisualizacaoUsuarios(form);
     }
     
     /**
@@ -58,22 +71,30 @@ public class ControlePrincipal
      * @param senha Senha do usuario no sistema
      * @return String que indica o tipo de usuario
      */
-    public String[] login(String login,String senha)
+    public void login()
     {
-        return DAOPRINCIPAL.realizarLogin(login, senha);
-    }
-    
-    /**
-     * Metodo que inicia a interface como um usuario default (pode apenas visualizar os dados)
-     */
-    public void EntrarComoUsuarioDefault()
-    {
+        String login;
+        String senha;
         
+        try {
+            String form[] = limLogin.obterDadosInterface();
+            login = form[0];
+            senha = form[1];
+            
+            String dados[] =  DAOPRINCIPAL.realizarLogin(login, senha);
+            
+            if(dados == null)
+                limLogin.mensagemErro("Nenhum usuario encontrado!\nVerifique os dados informados!");
+            else
+                limLogin.sucessoLogin(dados[0],dados[1]);
+        } catch (Exception exc) {
+            limLogin.mensagemErro(exc.getMessage());
+        }
     }
     
-    public void ExibirInterfacePrincipal()
+    public void ExibirInterfacePrincipal(String user)
     {
-        limPrincipal = new LimitePrincipal(this);
+        limPrincipal = new LimitePrincipal(this,user);
     }
     
     public void encerrarSagha()

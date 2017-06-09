@@ -17,7 +17,7 @@ public class LimitePrincipal {
     private JLabel logotipo;
     private JMenuBar barramenu;
     private JButton btnExit;
-    private JMenu hospital, drg, atendimentodrg;
+    private JMenu hospital, drg, atendimentodrg,usuarios;
     private ControlePrincipal objCtrl;
     private WindowListener winList;
 
@@ -26,9 +26,13 @@ public class LimitePrincipal {
     private final ImageIcon delete = new ImageIcon("img/delete.png");
     private final ImageIcon read = new ImageIcon("img/read.png");
     private final ImageIcon update = new ImageIcon("img/update.png");
-    private final ImageIcon regiao = new ImageIcon("img/local.png");
-
-    public LimitePrincipal(ControlePrincipal pCtrl) {
+    private final ImageIcon regiao = new ImageIcon("img/local.png");    
+    private final ImageIcon userADD = new ImageIcon("img/usuario.png");
+    private final ImageIcon userDEL = new ImageIcon("img/usuarioDEL.png");
+    private final ImageIcon userSHOW = new ImageIcon("img/usuarioVIEW.png");
+    private final String AGENTE = "AGENTE";
+    
+    public LimitePrincipal(ControlePrincipal pCtrl,String tipo) {
         objCtrl = pCtrl;
 
         //Criar JLabel's
@@ -37,6 +41,31 @@ public class LimitePrincipal {
         boasvindas = new JLabel();
 
         //Criar JMenuItem's e adicionar action listeners
+        //->  MENUS DE USUARIOS
+        JMenuItem cadastrarUsuario = new JMenuItem("Cadastrar Usuario",userADD);
+        cadastrarUsuario.setBackground(Color.white);
+        cadastrarUsuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                objCtrl.interfaceCadastroUsuario();
+            }
+        });
+        JMenuItem removerUsuario = new JMenuItem("Remover Usuario",userDEL);
+        removerUsuario.setBackground(Color.white);
+        removerUsuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                objCtrl.interfaceRemocaoUsuario();
+            }
+        });
+        JMenuItem visualizarUsuarios = new JMenuItem("Exibir usuarios",userSHOW);
+        visualizarUsuarios.setBackground(Color.white);
+        visualizarUsuarios.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                objCtrl.interfaceVisualizacaoUsuarios();
+            }
+        });
         //->  MENUS DE HOSPITAL
         JMenuItem cadastrarhospital = new JMenuItem("Cadastrar Hospital", create);
         cadastrarhospital.setBackground(Color.white);
@@ -141,6 +170,9 @@ public class LimitePrincipal {
         hospital = new JMenu("Hospitais");
         hospital.setForeground(Color.white);
         hospital.setBackground(new Color(124, 1, 45));
+        usuarios = new JMenu("Usuarios");
+        usuarios.setForeground(Color.white);
+        usuarios.setBackground(new Color(124, 1, 45));
         drg = new JMenu("DRG");
         drg.setForeground(Color.white);
         drg.setBackground(new Color(124, 1, 45));
@@ -149,6 +181,12 @@ public class LimitePrincipal {
         atendimentodrg.setBackground(new Color(124, 1, 45));
 
         //Adicionar itens a seus respectivos menus
+        //-> Menu usuarios
+        usuarios.add(cadastrarUsuario);
+        usuarios.addSeparator();
+        usuarios.add(visualizarUsuarios);
+        usuarios.addSeparator();
+        usuarios.add(removerUsuario);
         //-> Menu Hospital
         hospital.add(cadastrarhospital);
         hospital.addSeparator();
@@ -189,12 +227,21 @@ public class LimitePrincipal {
         btnExit.setBackground(new Color(124, 1, 45));
         btnExit.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
+                objCtrl.encerrarSagha();
                 System.exit(0);
             }
-        });
-
-        barramenu.add(hospital);
+        });        
+        
+        //Gerar interface se o usuario for o AGENTE
+        if(tipo.equals(AGENTE))
+        {
+            barramenu.add(usuarios);
+            barramenu.add(hospital);
+        }
+        
+        //Adicionar itens ao menu
         barramenu.add(drg);
         barramenu.add(atendimentodrg);
         barramenu.add(Box.createGlue());

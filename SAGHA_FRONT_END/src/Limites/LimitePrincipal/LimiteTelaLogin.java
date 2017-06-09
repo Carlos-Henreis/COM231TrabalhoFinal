@@ -12,7 +12,7 @@ public class LimiteTelaLogin
 {
     JFrame frame;
     JButton entrar,sair;
-    JTextField login;
+    JTextField cpf;
     JPasswordField senha;
     private ControlePrincipal objCtrl;
 
@@ -31,8 +31,8 @@ public class LimiteTelaLogin
         sair.setForeground(Color.WHITE);
         
         //Criar TextFields
-        login = new JTextField();
-        login.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(0,0,128)),"Login:"));
+        cpf = new JTextField();
+        cpf.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(0,0,128)),"CPF:"));
         senha = new JPasswordField();
         senha.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(0,0,128)),"Senha:"));
         
@@ -40,13 +40,7 @@ public class LimiteTelaLogin
         ActionListener go  = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String dados[] = obterDadosInterface();
-                
-                String form[] = objCtrl.login(dados[0],dados[1]);
-                if(form != null)
-                    sucessoLogin(form[0]);
-                else
-                    mensagemErro();
+                objCtrl.login();
             }
         };
         entrar.addActionListener(go);
@@ -55,6 +49,8 @@ public class LimiteTelaLogin
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
+                objCtrl.encerrarSagha();
+                System.exit(0);
             }
         });
         
@@ -76,7 +72,7 @@ public class LimiteTelaLogin
         //Adicionar componentes a seus paineis
         botoes.add(sair);
         botoes.add(entrar);
-        p1.add(login);
+        p1.add(cpf);
         p1.add(senha);
         p1.add(botoes);
         
@@ -100,37 +96,34 @@ public class LimiteTelaLogin
     }
     
     /**
-     * Metodo para ser executado apos login do sistema
+     * Metodo para ser executado apos cpf do sistema
      */
-    public void sucessoLogin(String nomeusuario)
+    public void sucessoLogin(String nomeusuario,String funcao)
     {
         JOptionPane.showMessageDialog(frame,"Bem vindo ao SAGHA Sr(a). "+nomeusuario+"!");
         
         frame.dispose();
-        objCtrl.ExibirInterfacePrincipal();
+        objCtrl.ExibirInterfacePrincipal(funcao);
     }
     
     /**
      * Exibir mensagem de erro ao usuario
      */
-    public void mensagemErro()
+    public void mensagemErro(String msg)
     {
-        JOptionPane.showMessageDialog(frame,"Dados de usuario invalidos!","Informaçao do sistema",JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(frame,msg,"Informaçao do sistema",JOptionPane.ERROR_MESSAGE);
     }
     
     /**
      * Obter dados da interface de usuario
-     * @return login e senha
+     * @return cpf e senha
      */
-    public String[] obterDadosInterface()
+    public String[] obterDadosInterface() throws Exception
     {        
-        if(login.getText().isEmpty() || senha.getText().isEmpty())
-        {
-            JOptionPane.showMessageDialog(frame,"Informe todos os campos!");            
-            return null;
-        }
+        if(cpf.getText().isEmpty() || senha.getText().isEmpty())
+            throw new Exception("Voce deve informar todos os campos!");
         
-        String form[] = {login.getText(),senha.getText()};
+        String form[] = {cpf.getText(),senha.getText()};
         return form;
     }
 }

@@ -17,25 +17,45 @@ public class DAO_PRINCIPAL
      * Metodo para validar login de usuario
      * @param login login do usuario
      * @param senha senha do usuario
-     * @return string com dados ou nulo, caso nao encontrado
+     * @return string com nome,funcao e ID do hospital ou nulo
      */
     public String[] realizarLogin(String login,String senha)
     {
         //p1 nome,p2 funcao
-        String form[] = new String[2];
-
-        /*Iterator it = sessao.createQuery("from Usuarios").list().iterator();
+        String form[];
+        
+        //Buscar se o usuario e gerente de hospital
+        Iterator it = sessao.createQuery("from Gerente").list().iterator();
         while(it.hasNext())
         {
-            Usuarios us = (Usuarios) it.next();
+            Gerente ag = (Gerente) it.next();
 
-            if(us.getId().getLogin().equals(login) && us.getId().getSenha().equals(senha))
+            if(ag.getCpf().equals(login) && ag.getSenha().equals(senha))
             {
-                form[0] = us.getNome();
-                form[1] = us.getFuncao();
+                form = new String[3];
+                form[0] = ag.getNome();
+                form[1] = "GERENTE";
+                form[2] = ""+ag.getHospital().getId();
+                
                 return form;
             }
-        }*/
+        }
+        
+        //Buscar se o usuario e agente da organizacao de saude americana
+        it = sessao.createQuery("from Agente").list().iterator();
+        while(it.hasNext())
+        {
+            Agente ag = (Agente) it.next();
+
+            if(ag.getCpf().equals(login) && ag.getSenha().equals(senha))
+            {
+                form = new String[2];
+                form[0] = ag.getNome();
+                form[1] = "AGENTE";
+                
+                return form;
+            }
+        }
         
         return null;
     }
