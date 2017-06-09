@@ -1,0 +1,8 @@
+------------------------------------------------USUARIOS--------------------------------------------------------------------------
+criado usuario publico com login publico e senha publico;
+criado usuario agente com login agente e senha agente;
+grant insert,update,delete,select on sagha.* to agente;
+
+-------------------------------------------------USUARIOS DE APP, TABELA NO BD----------------------------------------------------
+AGENTE   -> CRUD usuarios, + interface SAGHA
+GERENTE	 -> Pode fazer tudo menos cadastrar hospital e usuarios

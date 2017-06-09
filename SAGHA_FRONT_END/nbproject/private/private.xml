@@ -2,6 +2,21 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group/>
+=======
+<<<<<<< HEAD
+        <group/>
+=======
+        <group>
+            <file>file:/home/mateus/COM231TrabalhoFinal/SAGHA_FRONT_END/src/Model/Usuarios.java</file>
+            <file>file:/home/mateus/COM231TrabalhoFinal/SAGHA_FRONT_END/src/Model/DAO_HOSPITAL.java</file>
+            <file>file:/home/mateus/COM231TrabalhoFinal/SAGHA_FRONT_END/src/Controladores/ControlePrincipal.java</file>
+            <file>file:/home/mateus/COM231TrabalhoFinal/SAGHA_FRONT_END/src/Model/DAO_PRINCIPAL.java</file>
+            <file>file:/home/mateus/COM231TrabalhoFinal/SAGHA_FRONT_END/src/Model/UsuariosId.java</file>
+            <file>file:/home/mateus/COM231TrabalhoFinal/SAGHA_FRONT_END/src/Limites/LimitePrincipal/LimiteTelaLogin.java</file>
+        </group>
+>>>>>>> c357d5b599f025a0055850bb1084c9d6cadd94b0
+>>>>>>> 0b1945f2130730778f297877b96d67d1c3f119df
     </open-files>
 </project-private>
