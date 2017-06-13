@@ -1,8 +1,9 @@
 --Valores dos pagamentos médios de DRG por estado -- USUARIO INFORMA O ESTADO
 --Filtar por estado
 --Ordenar por nome da DRG
-select d.definicao, avg(a.mediapagamentosmedicare) from hospital h,(select id from hospital where estado = 'RI') est, atendimento_drg a,drg d
+select d.definicao, avg(a.mediapagamentosmedicare) from hospital h,(select id from hospital where estado = 'AL') est, atendimento_drg a,drg d
 where h.id = est.id and d.codigo = a.codigodrg group by codigodrg;
+
 
 --Media de pagamentos por DRG
 --Filtar por definicao de DRG

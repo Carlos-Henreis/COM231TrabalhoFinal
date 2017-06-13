@@ -148,6 +148,12 @@ public class LimiteRemocaoUsuario
         if(cpfTF.getText().isEmpty())
             throw new Exception("Voce deve informar o cpf do usuario!");
         
+        try {
+            
+        } catch (Exception exc) {
+            
+        }
+        
         if(cpfTF.getText().length() != 11)
             throw new Exception("O CPF deve ter 11 digitos!");
         
