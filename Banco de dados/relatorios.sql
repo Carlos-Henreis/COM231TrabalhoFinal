@@ -22,8 +22,8 @@ from (select h.estado,d.codigo from hospital h,drg d, atendimento_drg att where 
 --Ordenacao por valor
 --Filtragem por hospital ou por estado
 select h.id,h.nome,h.estado,val.valor_medio_pagamentos 
-from hospital h join (select idhospital, avg(pagamentosmediostotais) as valor_medio_pagamentos from atendimento_drg group by idhospital) where h.estado = 'OR'  val 
-on h.id = val.idhospital order by val.valor_medio_pagamentos asc;
+from hospital h join (select idhospital, avg(pagamentosmediostotais) as valor_medio_pagamentos from atendimento_drg group by idhospital)  val 
+on h.id = val.idhospital where h.estado = 'AL' order by val.valor_medio_pagamentos asc;
 
 --Definicao da DRG, numero de altas totais dessa DRG, numero de hospitais que atendem essa DRG,media de altas por hospital
 select d.definicao, att.numero_total_altas,att.numero_hospitais_capacitados 
