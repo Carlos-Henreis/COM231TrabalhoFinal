@@ -24,7 +24,6 @@ public class ControleHospital
     {
         lista = new ArrayList<>();
         DAO = new DAO_HOSPITAL(sessao);
-        DAO.felicidade("AL");
     }
     
     public void interfaceCadastroHospital()

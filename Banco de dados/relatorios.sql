@@ -1,3 +1,4 @@
+--RELATORIO: relatorioPagMedioDrgEstado(String estado)
 --Valores dos pagamentos médios de DRG por estado -- USUARIO INFORMA O ESTADO
 --Filtar por estado
 --Ordenar por nome da DRG

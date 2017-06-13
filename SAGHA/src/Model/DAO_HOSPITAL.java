@@ -75,25 +75,6 @@ public class DAO_HOSPITAL
         return null;
     }
     
-    public void felicidade(String est)
-    {
-        String consulta = "select concat(d.definicao,'#',avg(a.mediapagamentosmedicare)) from hospital h,(select id from hospital where estado = :est) est, atendimento_drg a,drg d where h.id = est.id and d.codigo = a.codigodrg group by codigodrg";
-        SQLQuery sql = sessao.createSQLQuery(consulta);
-        sql.setString("est", est);
-        
-        
-        int i = 0;
-        for(Object o : sql.list())
-        {
-            String st = (String) o;
-            String data[] = st.split("#");
-            System.out.println("Definicao: "+data[0]+"\nMedia: "+data[1]+"\n\n");
-            i++;
-        }
-        
-        System.out.println("Contagem: "+i);
-    }
-    
     /**
      * Obtem todos os hospitais cadastrados
      * @return lista de hospitais
