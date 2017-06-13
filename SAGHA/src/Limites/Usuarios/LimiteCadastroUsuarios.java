@@ -167,7 +167,7 @@ public class LimiteCadastroUsuarios
     
     /**
      * 
-     * @return 1: nome, 2: cpf, 3: Tipo de usuario, 4: Id do hospital (caso usuario seja gerente)
+     * @return 1: nome, 2: cpf, 3: Tipo de usuario, 4: senha, 5: Id do hospital (caso usuario seja gerente)
      * @throws Exception por dados inconsistentes
      */
     public String[] obterDadosUsuario() throws Exception
@@ -182,7 +182,7 @@ public class LimiteCadastroUsuarios
         
         if(tipoCB.getSelectedIndex() == 0)
         {
-            form = new String[3];
+            form = new String[4];
             form[0] = nomeTF.getText();
             
             if(cpfTF.getText().length() != 11)
@@ -193,7 +193,7 @@ public class LimiteCadastroUsuarios
         }
         else
         {
-            form = new String[4];
+            form = new String[5];
             
             form[0] = nomeTF.getText();
             

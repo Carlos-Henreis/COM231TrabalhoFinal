@@ -10,9 +10,9 @@ public class LimiteRemocaoUsuario
     private JFrame frame;
     private JButton remover,sair;
     private JTextField cpfTF;
-    private JRadioButton sim;
+    private JRadioButton sim,agente,gerente;
     private JLabel cpfJL,confirmacaoJL;
-    private JPanel pcod,pconfirm,psair,principal;
+    private JPanel pcod,pconfirm,ptipo,psair,principal;
     private BoxLayout box;
     private ActionListener cadListener,sairListener;
     private ControlePrincipal objCtrl;
@@ -38,6 +38,8 @@ public class LimiteRemocaoUsuario
         sair.setForeground(Color.white);
         sair.setBackground(new Color(0,0,128));
         sim = new JRadioButton("Confirmo");
+        agente = new JRadioButton("Agente");
+        gerente = new JRadioButton("Gerente");
         
         //Criar listeners
         cadListener = new ActionListener()

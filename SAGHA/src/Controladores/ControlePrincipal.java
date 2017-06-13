@@ -120,10 +120,10 @@ public class ControlePrincipal
      */
     public void cadastrarAgenteOrgSaude()
     {
-        //1: nome, 2: cpf, 3: Tipo de usuario, 4: Id do hospital
+        //1: nome, 2: cpf, 3: Tipo de usuario, 4: senha, 5: Id do hospital (caso usuario seja gerente)
         try {
             String dados[] = limCadUser.obterDadosUsuario();
-            Agente ag = new Agente(dados[1],dados[0],dados[2]);
+            Agente ag = new Agente(dados[1],dados[0],dados[3]);
             
             if(DAOPRINCIPAL.cadastrarAgente(ag))
                 limCadUser.mensagemSucesso();
@@ -140,10 +140,11 @@ public class ControlePrincipal
      */
     public void cadastrarGerenteDeHospital()
     {
+        //1: nome, 2: cpf, 3: Tipo de usuario, 4: senha, 5: Id do hospital (caso usuario seja gerente)
         try {
             String dados[] = limCadUser.obterDadosUsuario();
             Hospital h = getControladorHospitais().getDaoHospital().getHospital(Integer.parseInt(dados[4]));
-            Gerente gr = new Gerente(dados[1],h,dados[0],dados[2]);
+            Gerente gr = new Gerente(dados[1],h,dados[0],dados[3]);
             
             if(DAOPRINCIPAL.cadastrarGerenteHospital(gr))
                 limCadUser.mensagemSucesso();

@@ -68,7 +68,7 @@ public class DAO_PRINCIPAL
     public boolean cadastrarAgente(Agente agnt)
     {
         sessao.save(agnt);
-        sessao.beginTransaction();
+        tr = sessao.beginTransaction();
         tr.commit();
         
         return tr.wasCommitted();
@@ -82,7 +82,7 @@ public class DAO_PRINCIPAL
     public boolean cadastrarGerenteHospital(Gerente gnt)
     {
         sessao.save(gnt);
-        sessao.beginTransaction();
+        tr = sessao.beginTransaction();
         tr.commit();
         
         return tr.wasCommitted();
@@ -100,7 +100,7 @@ public class DAO_PRINCIPAL
         if(ag.getCpf().equals(cpf))
         {
             sessao.delete(ag);
-            sessao.beginTransaction();
+            tr = sessao.beginTransaction();
             tr.commit();
             
             return tr.wasCommitted();
@@ -111,7 +111,7 @@ public class DAO_PRINCIPAL
         if(gr.getCpf().equals(cpf))
         {
             sessao.delete(gr);
-            sessao.beginTransaction();
+            tr = sessao.beginTransaction();
             tr.commit();
             
             return tr.wasCommitted();

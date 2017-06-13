@@ -229,8 +229,8 @@ public class LimitePrincipal {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                objCtrl.encerrarSagha();
-                System.exit(0);
+                frame.dispose();
+                objCtrl.interfaceDeLogin();
             }
         });        
         
