@@ -56,7 +56,11 @@ public class DAO_RELATORIOS {
 
         return lista;
     }
-
+    
+    /**
+     * Gera o seguinte relatório: Relatório de contagem de número de DRGs por estado
+     * @return lista de dados do relatorio
+     */
     public ArrayList<RelatorioContagemDRGEstado> relatorioContNumeroDRGsEstado() {
         ArrayList<RelatorioContagemDRGEstado> lista = new ArrayList<>();
 
@@ -71,6 +75,10 @@ public class DAO_RELATORIOS {
         return lista;
     }
     
+    /**
+     * Gera o seguinte relatório: Relatório de pagamento medio total por hospital
+     * @return lista de dados do relatorio
+     */
     public ArrayList<RelatorioPagMedioTotalHospital> relatorioPagMedioTotalHospital() {
         ArrayList<RelatorioPagMedioTotalHospital> lista = new ArrayList<>();
 

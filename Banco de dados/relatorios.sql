@@ -5,7 +5,7 @@
 select d.definicao, avg(a.mediapagamentosmedicare) from hospital h,(select id from hospital where estado = 'AL') est, atendimento_drg a,drg d
 where h.id = est.id and d.codigo = a.codigodrg group by codigodrg;
 
-
+--Relatorio: relatorioPagMedioPorDrg()
 --Media de pagamentos por DRG
 --Filtar por definicao de DRG
 --Ordenar por media de valor
@@ -18,6 +18,7 @@ from drg d, (SELECT codigodrg,avg(mediapagamentosmedicare) as mediavalor from at
 select distinct att.estado as ESTADO,count(distinct att.codigo) as CONTAGEM
 from (select h.estado,d.codigo from hospital h,drg d, atendimento_drg att where att.idhospital = h.id and att.codigodrg = d.codigo) att group by att.estado order by CONTAGEM desc;
 
+--Relatorio: relatorioPagMedioTotalHospital()
 --Pagamentos medios totais por hospital por estado
 --Ordenacao por valor
 --Filtragem por hospital ou por estado
@@ -25,11 +26,13 @@ select h.id,h.nome,h.estado,val.valor_medio_pagamentos
 from hospital h join (select idhospital, avg(pagamentosmediostotais) as valor_medio_pagamentos from atendimento_drg group by idhospital)  val 
 on h.id = val.idhospital where h.estado = 'AL' order by val.valor_medio_pagamentos asc;
 
+--Relatorio:
 --Definicao da DRG, numero de altas totais dessa DRG, numero de hospitais que atendem essa DRG,media de altas por hospital
 select d.definicao, att.numero_total_altas,att.numero_hospitais_capacitados 
 from(select codigodrg,sum(numeroaltas) as numero_total_altas,count(idhospital) as numero_hospitais_capacitados from atendimento_drg group by codigodrg) att, drg d
 where d.codigo = att.codigodrg order by att.numero_total_altas;
 
+--Relatorio:
 --Numero de DRG's atendidas por regiao de referencia
 select attr.regiao_referencia, count(distinct attr.codigodrg) 
 from (select hr.regiao_referencia, att.codigodrg from hospitais_regiao hr, (select idhospital,codigodrg from atendimento_drg) att where hr.idhospital = att.idhospital ) attr
