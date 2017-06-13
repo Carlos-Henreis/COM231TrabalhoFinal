@@ -54,12 +54,12 @@ public class ControlePrincipal
     
     public void interfaceCadastroUsuario()
     {
-        new LimiteCadastroUsuarios(this);
+        limCadUser = new LimiteCadastroUsuarios(this);
     }
     
     public void interfaceRemocaoUsuario()
     {
-        new LimiteRemocaoUsuario(this);
+        limDelUser = new LimiteRemocaoUsuario(this);
     }
     
     public void interfaceVisualizacaoUsuarios()
@@ -88,7 +88,7 @@ public class ControlePrincipal
             i++;
         }
         
-        new LimiteVisualizacaoUsuarios(form);
+        limVisUser = new LimiteVisualizacaoUsuarios(form);
     }
     
     /**

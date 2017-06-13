@@ -149,12 +149,6 @@ public class LimiteRemocaoUsuario
         if(cpfTF.getText().length() != 11)
             throw new Exception("O CPF deve ter 11 digitos!");
         
-        try {
-            int aux = Integer.parseInt(cpfTF.getText());
-        } catch (Exception exc) {
-            throw new Exception("O CPF deve ser numerico!");
-        }
-        
         return cpfTF.getText();
     }
     

@@ -17,4 +17,4 @@ create table gerente
 	foreign key (idhospital) references hospital(id) on delete cascade
 );
 
-insert into gerente values('Mateus Toledo','12712712712','rootroot',1001);
+insert into gerente values('Mateus Toledo','12712712712','rootroot',510031);
