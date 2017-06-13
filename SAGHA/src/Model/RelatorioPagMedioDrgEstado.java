@@ -5,16 +5,18 @@
  */
 package Model;
 
-public class Relatorio1 {
+public class RelatorioPagMedioDrgEstado {
     String definicao;
     double media;
 
-    public Relatorio1(String definicao, double media) {
+    public RelatorioPagMedioDrgEstado(String definicao, double media) {
         this.definicao = definicao;
         this.media = media;
     }
+    
+    
 
-    public Relatorio1() {
+    public RelatorioPagMedioDrgEstado() {
     }
     
     public String getDefinicao() {

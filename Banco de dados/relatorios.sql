@@ -12,17 +12,17 @@ where h.id = est.id and d.codigo = a.codigodrg group by codigodrg;
 select d.definicao,t.mediavalor
 from drg d, (SELECT codigodrg,avg(mediapagamentosmedicare) as mediavalor from atendimento_drg group by codigodrg) t where d.codigo = t.codigodrg;
 
---Valor dos pagamentos médios de DRG por estado do provedor.
-
+--Relatórios: relatorioContNumeroDRGsEstado ()
+--Contagem do numero de DRGs atendidas por estado
 --Grafico de barras com numero de DRG's atendidas por estado (um com os que mais atendem e um com os que menos atendem)
 select distinct att.estado as ESTADO,count(distinct att.codigo) as CONTAGEM
 from (select h.estado,d.codigo from hospital h,drg d, atendimento_drg att where att.idhospital = h.id and att.codigodrg = d.codigo) att group by att.estado order by CONTAGEM desc;
 
---Pagamentos medios totais por hospital
+--Pagamentos medios totais por hospital por estado
 --Ordenacao por valor
 --Filtragem por hospital ou por estado
 select h.id,h.nome,h.estado,val.valor_medio_pagamentos 
-from hospital h join (select idhospital, avg(pagamentosmediostotais) as valor_medio_pagamentos from atendimento_drg group by idhospital)  val 
+from hospital h join (select idhospital, avg(pagamentosmediostotais) as valor_medio_pagamentos from atendimento_drg group by idhospital) where h.estado = 'OR'  val 
 on h.id = val.idhospital order by val.valor_medio_pagamentos asc;
 
 --Definicao da DRG, numero de altas totais dessa DRG, numero de hospitais que atendem essa DRG,media de altas por hospital
