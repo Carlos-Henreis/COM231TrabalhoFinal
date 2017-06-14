@@ -79,21 +79,41 @@ public class DAO_RELATORIOS {
      * Gera o seguinte relatório: Relatório de pagamento medio total por hospital
      * @return lista de dados do relatorio
      */
-    public ArrayList<RelatorioPagMedioTotalHospital> relatorioPagMedioTotalHospital() {
-        ArrayList<RelatorioPagMedioTotalHospital> lista = new ArrayList<>();
+    public ArrayList<RelatorioDRGGeral> relatorioDRG() {
+        ArrayList<RelatorioDRGGeral> lista = new ArrayList<>();
 
-        String consulta = "select concat (h.id,'#',h.nome,'#',h.estado,'#',val.valor_medio_pagamentos) \n" +
-                          "from hospital h join (select idhospital, avg(pagamentosmediostotais) as valor_medio_pagamentos from atendimento_drg group by idhospital)  val \n" +
-                          "on h.id = val.idhospital where h.estado = 'AL' order by val.valor_medio_pagamentos asc;";
+        String consulta = "select concat (d.definicao,'#',att.numero_total_altas,'#',att.numero_hospitais_capacitados) \n" +
+                            "from(select codigodrg,sum(numeroaltas) as numero_total_altas,count(idhospital) as numero_hospitais_capacitados from atendimento_drg group by codigodrg) att, drg d\n" +
+                            "where d.codigo = att.codigodrg order by att.numero_total_altas;";
         SQLQuery sql = sessao.createSQLQuery(consulta);
-
         for (Object o : sql.list()) {
             String st = (String) o;
             String data[] = st.split("#");
-            lista.add(new RelatorioPagMedioTotalHospital(Integer.parseInt(data[0]), data[1], data[2], Double.parseDouble(data[3])));
+            lista.add(new RelatorioDRGGeral(data[0] , Integer.parseInt(data[1]), Integer.parseInt(data[2])));
         }
         return lista;
     }
+    
+    /**
+     *
+     * @return
+     */
+    public ArrayList<RelatorioNumDRGPorRef> relatorioNumDRGPorRef() {
+        ArrayList<RelatorioNumDRGPorRef> lista = new ArrayList<>();
+
+        String consulta = "select concat (d.definicao,'#',att.numero_total_altas,'#',att.numero_hospitais_capacitados) \n" +
+                            "from(select codigodrg,sum(numeroaltas) as numero_total_altas,count(idhospital) as numero_hospitais_capacitados from atendimento_drg group by codigodrg) att, drg d\n" +
+                            "where d.codigo = att.codigodrg order by att.numero_total_altas;";
+        SQLQuery sql = sessao.createSQLQuery(consulta);
+        for (Object o : sql.list()) {
+            String st = (String) o;
+            String data[] = st.split("#");
+            lista.add(new RelatorioNumDRGPorRef(data[0] , Integer.parseInt(data[1])));
+        }
+        return lista;
+    }
+    
+    
 
 
 }

@@ -21,8 +21,6 @@ public class ControleHospital {
     private Hospital h;
 
     public ControleHospital(Session sessao) {
-        DAO_RELATORIOS teste = new DAO_RELATORIOS(sessao);
-        teste.relatorioPagMedioTotalHospital();
         lista = new ArrayList<>();
         DAO = new DAO_HOSPITAL(sessao);
     }
