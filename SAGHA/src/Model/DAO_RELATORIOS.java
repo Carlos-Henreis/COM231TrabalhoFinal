@@ -109,15 +109,16 @@ public class DAO_RELATORIOS {
     }
     
     /**
-     *
-     * @return
+     * Busca no banco os dados necessarios para o relatorio de Numero de DRG's atendidas
+     * por regiao de referencia
+     * @return lista de dados
      */
     public ArrayList<RelatorioNumDRGPorRef> relatorioNumDRGPorRef() {
         ArrayList<RelatorioNumDRGPorRef> lista = new ArrayList<>();
 
-        String consulta = "select concat (d.definicao,'#',att.numero_total_altas,'#',att.numero_hospitais_capacitados) \n" +
-                            "from(select codigodrg,sum(numeroaltas) as numero_total_altas,count(idhospital) as numero_hospitais_capacitados from atendimento_drg group by codigodrg) att, drg d\n" +
-                            "where d.codigo = att.codigodrg order by att.numero_total_altas;";
+        String consulta = "select attr.regiao_referencia, count(distinct attr.codigodrg) as contagem " +
+                                "from (select hr.regiao_referencia, att.codigodrg from hospitais_regiao hr, (select idhospital,codigodrg from atendimento_drg) att where hr.idhospital = att.idhospital ) attr " +
+                                "group by regiao_referencia order by contagem asc;";
         SQLQuery sql = sessao.createSQLQuery(consulta);
         for (Object o : sql.list()) {
             String st = (String) o;
