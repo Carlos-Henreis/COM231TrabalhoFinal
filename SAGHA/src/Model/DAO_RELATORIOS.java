@@ -45,7 +45,7 @@ public class DAO_RELATORIOS {
     public ArrayList<RelatorioPagMedioDrgEstado> relatorioPagMedioPorDrg() {
         ArrayList<RelatorioPagMedioDrgEstado> lista = new ArrayList<>();
 
-        String consulta = "select concat(d.definicao,'#',t.mediavalor) from drg d, (SELECT codigodrg,avg(mediapagamentosmedicare) as mediavalor from atendimento_drg group by codigodrg) t where d.codigo = t.codigodrg;";
+        String consulta = "select concat(d.definicao,'#',t.mediavalor) from drg d, (SELECT codigodrg,avg(mediapagamentosmedicare) as mediavalor from atendimento_drg group by codigodrg) t where d.codigo = t.codigodrg order by t.mediavalor asc;";
         SQLQuery sql = sessao.createSQLQuery(consulta);
 
         for (Object o : sql.list()) {
@@ -113,7 +113,37 @@ public class DAO_RELATORIOS {
         return lista;
     }
     
-    
+    /**
+     * Metodo para obter a lista com todos os estados cadastrados no sistema
+     * @return lista de estados (String)
+     */
+    public String[] obterListaDeEstados()
+    {
+        String lista[];
+        double dim;
+        int dimensao;
+        
+        //Contar numero de estados distintos do banco
+        String contador = "select count(distinct estado) from hospital";
+        SQLQuery sql = sessao.createSQLQuery(contador);
+        dim = (double) sql.list().get(0);
+        
+        //Definir dimensao da lista
+        dimensao = (int) dim;
+        lista = new String[dimensao];
+        
+        //Obter todos os estados disponiveis no SAGHA
+        String consulta = "select distinct estado from hospital";
+        sql = sessao.createSQLQuery(consulta);
+        dimensao = 0;
+        for(Object est : sql.list())
+        {
+            lista[dimensao] = (String) est;
+            dimensao++;
+        }
+        
+        return lista;
+    }
 
 
 }

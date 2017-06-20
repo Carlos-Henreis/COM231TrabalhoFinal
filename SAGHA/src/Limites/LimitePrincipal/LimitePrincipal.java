@@ -1,13 +1,9 @@
 package Limites.LimitePrincipal;
 
 import Controladores.ControlePrincipal;
-import Limites.HospitalRegiao.LimiteCadastroHospitalRegiao;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
 
 public class LimitePrincipal {
 
@@ -17,7 +13,7 @@ public class LimitePrincipal {
     private JLabel logotipo;
     private JMenuBar barramenu;
     private JButton btnExit;
-    private JMenu hospital, drg, atendimentodrg,usuarios;
+    private JMenu hospital, drg, atendimentodrg,usuarios,relatorios;
     private ControlePrincipal objCtrl;
     private WindowListener winList;
 
@@ -165,6 +161,47 @@ public class LimitePrincipal {
                 objCtrl.getControladorAtendimentoDRG().interfaceAtualizacaoAtendimentoDRG();
             }
         });
+        //-> MENUS DE RELATORIOS
+        JMenuItem relPagMedioAttDrgEstado = new JMenuItem("Pagamento medio do atendimento de DRG por estado", read);
+        relPagMedioAttDrgEstado .setBackground(Color.white);
+        relPagMedioAttDrgEstado .addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                objCtrl.getControladorRelatorios().interfaceRelatorioPagMedioDrgEstado();
+            }
+        });
+        JMenuItem relPagMedioAttDrg = new JMenuItem("Pagamento medio do atendimento de DRG (geral)", read);
+        relPagMedioAttDrg .setBackground(Color.white);
+        relPagMedioAttDrg.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                objCtrl.getControladorRelatorios().interfaceRelatorioPagamentoMedioDRG();
+            }
+        });
+        JMenuItem relContNumDrgEstado = new JMenuItem("Contagem de numero de DRG's atedidas por estado", read);
+        relContNumDrgEstado.setBackground(Color.white);
+        relContNumDrgEstado.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                objCtrl.getControladorRelatorios().interfaceRelatorioContagemDrgAtendidaPorEstado();
+            }
+        });
+        JMenuItem relGeralDRG = new JMenuItem("Relatorio geral de DRG - Altas totais e hospitais capacitados", read);
+        relGeralDRG.setBackground(Color.white);
+        relGeralDRG.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //DEFINIR ACAO DO LISTENER
+            }
+        });
+        JMenuItem relDrgRegRef= new JMenuItem("Numero de DRG's atendidas por regiao de referencia", read);
+        relDrgRegRef.setBackground(Color.white);
+        relDrgRegRef.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //DEFINIR ACAO DO LISTENER
+            }
+        });
 
         //Criar JMenu's
         hospital = new JMenu("Hospitais");
@@ -179,6 +216,9 @@ public class LimitePrincipal {
         atendimentodrg = new JMenu("Atendimento de DRG");
         atendimentodrg.setForeground(Color.white);
         atendimentodrg.setBackground(new Color(124, 1, 45));
+        relatorios = new JMenu("Relatorios");
+        relatorios.setForeground(Color.white);
+        relatorios.setBackground(new Color(124, 1, 45));
 
         //Adicionar itens a seus respectivos menus
         //-> Menu usuarios
@@ -211,6 +251,16 @@ public class LimitePrincipal {
         atendimentodrg.add(atualizarAttDrg);
         atendimentodrg.addSeparator();
         atendimentodrg.add(visualizarAttDrg);
+        //->Menu de Relatorios
+        relatorios.add(relContNumDrgEstado);
+        relatorios.addSeparator();
+        relatorios.add(relDrgRegRef);
+        relatorios.addSeparator();
+        relatorios.add(relGeralDRG);
+        relatorios.addSeparator();
+        relatorios.add(relPagMedioAttDrg);
+        relatorios.addSeparator();
+        relatorios.add(relPagMedioAttDrgEstado);
 
         //Criar JMenuBar e adicionar submenus
         barramenu = new JMenuBar();
@@ -246,6 +296,7 @@ public class LimitePrincipal {
         barramenu.add(atendimentodrg);
         barramenu.add(Box.createGlue());
         barramenu.add(btnExit);
+        barramenu.add(relatorios);
 
         //Criar JPanel's
         pfinal = new JPanel(new FlowLayout(FlowLayout.CENTER));

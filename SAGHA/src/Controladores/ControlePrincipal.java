@@ -21,6 +21,7 @@ public class ControlePrincipal
     private ControleDrg objCtrlDrg;
     private ControleAtendimentoDRG objCtrlAttDrg;
     private ControleHospitaisRegiao objCtrlHospReg;
+    private ControleRelatorios objCtrlRelatorios;
     private Session sessao;
     private DAO_PRINCIPAL DAOPRINCIPAL;
     
@@ -39,9 +40,14 @@ public class ControlePrincipal
         objCtrlDrg = new ControleDrg(sessao);
         objCtrlAttDrg = new ControleAtendimentoDRG(sessao);
         objCtrlHospReg = new ControleHospitaisRegiao(sessao);
+        objCtrlRelatorios = new ControleRelatorios(sessao);
         
         //Iniciar interface parao usuario
         this.interfaceDeLogin();
+    }
+
+    public ControleRelatorios getControladorRelatorios() {
+        return objCtrlRelatorios;
     }
     
     /**

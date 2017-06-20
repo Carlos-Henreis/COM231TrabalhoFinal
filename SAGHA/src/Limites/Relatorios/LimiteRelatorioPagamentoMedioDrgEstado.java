@@ -1,5 +1,6 @@
 package Limites.Relatorios;
 
+import Controladores.ControleRelatorios;
 import Model.RelatorioPagMedioDrgEstado;
 import java.awt.*;
 import java.awt.event.*;
@@ -8,7 +9,7 @@ import javax.swing.*;
 import org.jfree.chart.*;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-public class relatorioPagamentoMedioDrgEstado
+public class LimiteRelatorioPagamentoMedioDrgEstado
 {
     private JComboBox estadosCB;
     private JPanel principal,central,topCombo;
@@ -19,15 +20,17 @@ public class relatorioPagamentoMedioDrgEstado
     private BoxLayout box;
     private ArrayList<RelatorioPagMedioDrgEstado> maioresValores,menoresValores;
     private JFrame tela;
-    
+    private ControleRelatorios objCtrl;
     /**
-     * Gera a interface do relatorio de pagamentos medios de DRG por estado
+     * Gera a interface do LimiteRelatorio de pagamentos medios de DRG por estado
      * @param lista lista de estados disponiveis
      * @param maioresVal lista com as 5 DRG's mais caras do estado
      * @param menoresVal lista com as 5 DRG's mais baratas do estado
      */
-    public relatorioPagamentoMedioDrgEstado(String lista[],ArrayList<RelatorioPagMedioDrgEstado> maioresVal,ArrayList<RelatorioPagMedioDrgEstado> menoresVal)
+    public LimiteRelatorioPagamentoMedioDrgEstado(ControleRelatorios pCtrl,String lista[],ArrayList<RelatorioPagMedioDrgEstado> maioresVal,ArrayList<RelatorioPagMedioDrgEstado> menoresVal)
     {
+        objCtrl = pCtrl;
+        
         maioresValores = menoresVal;
         menoresValores = menoresVal;
         
@@ -41,10 +44,11 @@ public class relatorioPagamentoMedioDrgEstado
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if(estadosCB.getSelectedIndex() == 0)
-                    System.out.println("DEVE LIMPAR A INTERFACE");
+                    central.setVisible(false);
                 else
                 {
-                    System.out.println("GERAR RELATORIO DESSE ESTADO");
+                    String estado = (String) estadosCB.getItemAt(estadosCB.getSelectedIndex());
+                    objCtrl.atualizarInterfaceRelatorioPagMedioDrgEstado(estado);
                 }
             }
         });
@@ -91,6 +95,7 @@ public class relatorioPagamentoMedioDrgEstado
         central.add(Box.createGlue());
         central.add(subGrafico2);
         central.add(Box.createGlue());
+        central.setVisible(false);
         //->PAINEL PRINCIPAL, COM TUDO DENTRO DELE
         principal.add(topCombo,BorderLayout.PAGE_START);
         principal.add(central,BorderLayout.CENTER);
@@ -205,6 +210,7 @@ public class relatorioPagamentoMedioDrgEstado
         central.add(Box.createGlue());
         central.add(subGrafico2);
         central.add(Box.createGlue());
+        central.setVisible(true);
         central.revalidate();
         
         //Atualizar painel principal e JFrame
