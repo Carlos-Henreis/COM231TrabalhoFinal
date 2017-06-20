@@ -34,6 +34,6 @@ where d.codigo = att.codigodrg order by att.numero_total_altas;
 
 --Relatorio:
 --Numero de DRG's atendidas por regiao de referencia
-select attr.regiao_referencia, count(distinct attr.codigodrg) 
+select attr.regiao_referencia, count(distinct attr.codigodrg) as contagem
 from (select hr.regiao_referencia, att.codigodrg from hospitais_regiao hr, (select idhospital,codigodrg from atendimento_drg) att where hr.idhospital = att.idhospital ) attr
-group by regiao_referencia;
+group by regiao_referencia order by contagem asc;

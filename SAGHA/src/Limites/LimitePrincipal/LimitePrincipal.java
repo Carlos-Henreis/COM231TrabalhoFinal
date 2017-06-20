@@ -199,7 +199,7 @@ public class LimitePrincipal {
         relDrgRegRef.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //DEFINIR ACAO DO LISTENER
+                objCtrl.getControladorRelatorios().interfaceRelatorioDrgRegiaoReferecia();
             }
         });
 
@@ -294,9 +294,9 @@ public class LimitePrincipal {
         //Adicionar itens ao menu
         barramenu.add(drg);
         barramenu.add(atendimentodrg);
+        barramenu.add(relatorios);
         barramenu.add(Box.createGlue());
         barramenu.add(btnExit);
-        barramenu.add(relatorios);
 
         //Criar JPanel's
         pfinal = new JPanel(new FlowLayout(FlowLayout.CENTER));

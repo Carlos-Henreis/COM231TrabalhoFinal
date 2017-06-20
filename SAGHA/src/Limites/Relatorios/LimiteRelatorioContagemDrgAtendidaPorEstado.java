@@ -18,7 +18,7 @@ public class LimiteRelatorioContagemDrgAtendidaPorEstado
 {
     private JScrollPane painelRolagem;
     private JPanel principal, grafico,topExportar;
-    private JButton sair,pdf,svg;
+    private JButton sair,pdf;
     private DefaultCategoryDataset dados;
     private JFreeChart graficoBarras;
     private ChartPanel painelGrafico;
@@ -28,7 +28,7 @@ public class LimiteRelatorioContagemDrgAtendidaPorEstado
     
     
     private final ImageIcon pdfIcone = new ImageIcon("img/pdf1.png");
-    private final ImageIcon svgIcone = new ImageIcon("img/svg1.png");
+    private final ImageIcon sairIcone = new ImageIcon("img/exit.png");
     
     public LimiteRelatorioContagemDrgAtendidaPorEstado(ControleRelatorios pCtrl,ArrayList<RelatorioContagemDRGEstado> lista)
     {
@@ -37,14 +37,16 @@ public class LimiteRelatorioContagemDrgAtendidaPorEstado
         
         //Criar botoes
         pdf = new JButton(pdfIcone);
+        pdf.setBackground(new Color(0,0,128));
+        pdf.setBorderPainted(false);
         pdf.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
             }
         });
-        sair = new JButton("SAIR");
-        sair.setForeground(new Color(0,0,128));
+        sair = new JButton(sairIcone);
+        sair.setBackground(new Color(0,0,128));
         sair.setBorderPainted(false);
         sair.addActionListener(new ActionListener() {
             @Override
@@ -52,31 +54,23 @@ public class LimiteRelatorioContagemDrgAtendidaPorEstado
                 janela.dispose();
             }
         });
-        svg = new JButton(svgIcone);
-        svg.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                
-            }
-        });
+
         //Criar grafico
         painelGrafico = gerarGraficoBarrasMenoresValores();
         
         //Criar demais paineis
         topExportar = new JPanel(new FlowLayout(FlowLayout.CENTER,20,20));
-        painelRolagem = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        painelRolagem = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         grafico = new JPanel(new FlowLayout(FlowLayout.CENTER));
         principal = new JPanel(new BorderLayout());
         principal.setBorder(BorderFactory.createLineBorder(new Color(0,0,128),2));
         
         //Adicionar componentes a seus devidos paineis
         topExportar.add(pdf);
-        topExportar.add(svg);
         topExportar.add(sair);
         painelRolagem.getViewport().add(painelGrafico);
-        grafico.add(painelGrafico);
         principal.add(topExportar,BorderLayout.PAGE_START);
-        principal.add(grafico,BorderLayout.CENTER);
+        principal.add(painelRolagem,BorderLayout.CENTER);
         
         //Criar JFrame e setar opçoes
         janela = new JFrame();
@@ -93,18 +87,31 @@ public class LimiteRelatorioContagemDrgAtendidaPorEstado
     {
         //Gerar dados1 do grafmaioresVal
         dados = new DefaultCategoryDataset();
-        for(RelatorioContagemDRGEstado rel : listaDados)
+        for(int i=0 ; i<5 ; i++)
+        {
+            RelatorioContagemDRGEstado rel = listaDados.get(i);
+            dados.addValue(rel.getContagem(),rel.getEstado(),"Numero de DRG's atendidas");
+            
+        }
+        
+        for(int i = listaDados.size()-1 ; i> listaDados.size()-6 ; i--)
+        {
+            RelatorioContagemDRGEstado rel = listaDados.get(i);
+            dados.addValue(rel.getContagem(),rel.getEstado(),"Numero de DRG's atendidas");
+        }
+        
+        /*for(RelatorioContagemDRGEstado rel : listaDados)
         {
             dados.addValue(rel.getContagem(),rel.getEstado(),rel.getEstado());
-        }
+        }*/
 
         //Gerar Grafico
-        graficoBarras = ChartFactory.createBarChart("Drg's menos custosas do estado","Valor da DRG","Nome da DRG", dados);        
+        graficoBarras = ChartFactory.createBarChart("Quantidade de DRG's atendidas por estado","Estados listados","Numero de DRG's atendidas", dados);        
         graficoBarras.setBackgroundPaint(Color.white);
         
         //gerar paineis
         painelGrafico = new ChartPanel(graficoBarras);
-        painelGrafico.setSize(800,600);
+        painelGrafico.setSize(4000,2000);
         
         return painelGrafico;        
     }

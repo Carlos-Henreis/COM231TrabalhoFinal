@@ -1,5 +1,6 @@
 package Model;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -116,9 +117,9 @@ public class DAO_RELATORIOS {
     public ArrayList<RelatorioNumDRGPorRef> relatorioNumDRGPorRef() {
         ArrayList<RelatorioNumDRGPorRef> lista = new ArrayList<>();
 
-        String consulta = "select attr.regiao_referencia, count(distinct attr.codigodrg) as contagem " +
+        String consulta = "select concat(attr.regiao_referencia,'#', count(distinct attr.codigodrg)) " +
                                 "from (select hr.regiao_referencia, att.codigodrg from hospitais_regiao hr, (select idhospital,codigodrg from atendimento_drg) att where hr.idhospital = att.idhospital ) attr " +
-                                "group by regiao_referencia order by contagem asc;";
+                                "group by regiao_referencia";
         SQLQuery sql = sessao.createSQLQuery(consulta);
         for (Object o : sql.list()) {
             String st = (String) o;
@@ -135,17 +136,16 @@ public class DAO_RELATORIOS {
     public String[] obterListaDeEstados()
     {
         String lista[];
-        double dim;
+        BigInteger dim;
         int dimensao;
         
         //Contar numero de estados distintos do banco
         String contador = "select count(distinct estado) from hospital";
         SQLQuery sql = sessao.createSQLQuery(contador);
-        dim = (double) sql.list().get(0);
+        dim = (BigInteger) sql.list().get(0);
         
         //Definir dimensao da lista
-        dimensao = (int) dim;
-        lista = new String[dimensao];
+        lista = new String[dim.intValue()];
         
         //Obter todos os estados disponiveis no SAGHA
         String consulta = "select distinct estado from hospital";

@@ -13,13 +13,12 @@ public class LimiteRelatorioPagamentoMedioDRG
     private JTable tabela;
     private JScrollPane painelRolagem;
     private JPanel topExportar,principal;
-    private JButton sair,pdf,svg;
+    private JButton sair,pdf;
     private ControleRelatorios objCtrl;
     private String dadosRelatorio[][];
     private JFrame janela;
 
     private final ImageIcon pdfIcone = new ImageIcon("img/pdf1.png");
-    private final ImageIcon svgIcone = new ImageIcon("img/svg1.png");
     
     public LimiteRelatorioPagamentoMedioDRG(ControleRelatorios pCtrl,String dados[][])
     {
@@ -52,13 +51,6 @@ public class LimiteRelatorioPagamentoMedioDRG
                 janela.dispose();
             }
         });
-        svg = new JButton(svgIcone);
-        svg.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                
-            }
-        });
         
         //Criar paineis
         principal = new JPanel(new BorderLayout());
@@ -67,7 +59,6 @@ public class LimiteRelatorioPagamentoMedioDRG
         
         //Adicionar componentes a seus paineis
         topExportar.add(pdf);
-        topExportar.add(svg);
         topExportar.add(sair);
         
         principal.add(topExportar,BorderLayout.PAGE_START);

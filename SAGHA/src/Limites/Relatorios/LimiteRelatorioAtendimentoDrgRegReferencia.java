@@ -15,14 +15,13 @@ public class LimiteRelatorioAtendimentoDrgRegReferencia
     private JTable tabela;
     private JScrollPane painelRolagem;
     private JPanel topExportar,principal;
-    private JButton sair,pdf,svg;
+    private JButton sair,pdf;
     private ControleRelatorios objCtrl;
     private String dadosRelatorio[][];
     private ArrayList<RelatorioNumDRGPorRef> listaDados;
     private JFrame janela;
 
     private final ImageIcon pdfIcone = new ImageIcon("img/pdf1.png");
-    private final ImageIcon svgIcone = new ImageIcon("img/svg1.png");
     
     public LimiteRelatorioAtendimentoDrgRegReferencia(ControleRelatorios pCtrl,ArrayList<RelatorioNumDRGPorRef> lista)
     {
@@ -63,13 +62,6 @@ public class LimiteRelatorioAtendimentoDrgRegReferencia
                 janela.dispose();
             }
         });
-        svg = new JButton(svgIcone);
-        svg.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                
-            }
-        });
         
         //Criar paineis
         principal = new JPanel(new BorderLayout());
@@ -78,7 +70,6 @@ public class LimiteRelatorioAtendimentoDrgRegReferencia
         
         //Adicionar componentes a seus paineis
         topExportar.add(pdf);
-        topExportar.add(svg);
         topExportar.add(sair);
         
         principal.add(topExportar,BorderLayout.PAGE_START);

@@ -14,6 +14,7 @@ public class ControleRelatorios
     private LimiteRelatorioPagamentoMedioDRG limRelatorioPagMedioDRG;
     private LimiteRelatorioContagemDrgAtendidaPorEstado limRelatorioContagemDrgAtendidaEstado;
     private LimiteRelatorioGeralDRG limRelatorioGeralDRG;
+    private LimiteRelatorioAtendimentoDrgRegReferencia limRelatorioPorRegiao;
     
     public ControleRelatorios(Session sessao)
     {
@@ -107,5 +108,13 @@ public class ControleRelatorios
     public void atualizarRelatorioGeral(int criterio)
     {
         limRelatorioGeralDRG.atualizarInterface(DAO.relatorioDRG(criterio));
+    }
+    
+    /**
+     * Visualizar relatorio de DRGs atendidas de acordo com a regiao de referencia
+     */
+    public void interfaceRelatorioDrgRegiaoReferecia()
+    {
+        limRelatorioPorRegiao = new LimiteRelatorioAtendimentoDrgRegReferencia(this, DAO.relatorioNumDRGPorRef());
     }
 }

@@ -12,8 +12,8 @@ import org.jfree.data.category.DefaultCategoryDataset;
 public class LimiteRelatorioPagamentoMedioDrgEstado
 {
     private JComboBox estadosCB;
-    private JPanel principal,central,topCombo;
-    private JButton sair;
+    private JPanel principal,central,topCombo,fundo;
+    private JButton sair,pdf;
     private ChartPanel painelGraficoMaior,painelGraficoMenor;
     private JFreeChart grafmaioresVal,grafmenoresVal;
     private DefaultCategoryDataset dados1,dados2;
@@ -27,6 +27,9 @@ public class LimiteRelatorioPagamentoMedioDrgEstado
      * @param maioresVal lista com as 5 DRG's mais caras do estado
      * @param menoresVal lista com as 5 DRG's mais baratas do estado
      */
+    private final ImageIcon pdfIcone = new ImageIcon("img/pdf1.png");
+    private final ImageIcon sairIcone = new ImageIcon("img/exit.png");
+    
     public LimiteRelatorioPagamentoMedioDrgEstado(ControleRelatorios pCtrl,String lista[],ArrayList<RelatorioPagMedioDrgEstado> maioresVal,ArrayList<RelatorioPagMedioDrgEstado> menoresVal)
     {
         objCtrl = pCtrl;
@@ -36,7 +39,6 @@ public class LimiteRelatorioPagamentoMedioDrgEstado
         
         //Criar JComboBox
         estadosCB = new JComboBox();
-        estadosCB.setLayout(new FlowLayout(FlowLayout.CENTER));
         estadosCB.addItem("Nenhum estado selecionado");
         for(String st : lista)
             estadosCB.addItem(st);
@@ -54,7 +56,7 @@ public class LimiteRelatorioPagamentoMedioDrgEstado
         });
         
         //Criar Jbutton
-        sair = new JButton("Sair");
+        sair = new JButton(sairIcone);
         sair.setBackground(new Color(0,0,128));
         sair.setForeground(Color.white);
         sair.addActionListener(new ActionListener() {
@@ -63,20 +65,31 @@ public class LimiteRelatorioPagamentoMedioDrgEstado
                 tela.dispose();
             }
         });
+        pdf = new JButton(pdfIcone);
+        pdf.setBackground(new Color(0,0,128));
+        pdf.setForeground(Color.white);
+        pdf.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
         
         //Gerar paineis com os graficos
         painelGraficoMaior = gerarGraficoBarrasMaioresValores();
         painelGraficoMenor = gerarGraficoBarrasMenoresValores();
         
         //Criar paineis
+        fundo = new JPanel(new FlowLayout(FlowLayout.CENTER,20,20));
+        fundo.setBackground(new Color(0,0,128));
         topCombo = new JPanel(new FlowLayout(FlowLayout.CENTER,20,20));
         topCombo.setBackground(Color.white);
         JPanel subGrafico1 = new JPanel(new FlowLayout(FlowLayout.CENTER));
         subGrafico1.setBackground(Color.white);
         JPanel subGrafico2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
         subGrafico2.setBackground(Color.white);
-        box = new BoxLayout(central, BoxLayout.Y_AXIS);
         central = new JPanel();
+        box = new BoxLayout(central, BoxLayout.Y_AXIS);
         central.setBackground(Color.white);
         central.setLayout(box);
         principal = new JPanel(new BorderLayout(30, 30));
@@ -86,6 +99,9 @@ public class LimiteRelatorioPagamentoMedioDrgEstado
         //->PAINEL NO TOPO, COM COMBOBOX
         topCombo.add(new JLabel("Selecione o estado:"));
         topCombo.add(estadosCB);
+        //->PAINEL FINAL COM OS BOTOES
+        fundo.add(pdf);
+        fundo.add(sair);
         //->SUBPAINEIS, UM PARA CADA GRAFICO
         subGrafico1.add(painelGraficoMaior);
         subGrafico2.add(painelGraficoMenor);
@@ -99,7 +115,7 @@ public class LimiteRelatorioPagamentoMedioDrgEstado
         //->PAINEL PRINCIPAL, COM TUDO DENTRO DELE
         principal.add(topCombo,BorderLayout.PAGE_START);
         principal.add(central,BorderLayout.CENTER);
-        principal.add(sair,BorderLayout.PAGE_END);
+        principal.add(fundo,BorderLayout.PAGE_END);
         
         //Setar operacoes da JFrame e iniciar tela
         tela = new JFrame();

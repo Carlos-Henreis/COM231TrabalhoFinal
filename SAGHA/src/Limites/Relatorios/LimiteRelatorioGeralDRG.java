@@ -23,10 +23,9 @@ public class LimiteRelatorioGeralDRG
     private AbstractTableModel modeloTabela;
     private ControleRelatorios objCtrl;
     private ArrayList<RelatorioDRGGeral> listaDados;
-    private JButton sair,pdf,svg;
+    private JButton sair,pdf;
 
     private final ImageIcon pdfIcone = new ImageIcon("img/pdf1.png");
-    private final ImageIcon svgIcone = new ImageIcon("img/svg1.png");
     
     public LimiteRelatorioGeralDRG(ControleRelatorios pCtrl,ArrayList<RelatorioDRGGeral> lista)
     {
@@ -50,13 +49,6 @@ public class LimiteRelatorioGeralDRG
                 janela.dispose();
             }
         });
-        svg = new JButton(svgIcone);
-        svg.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                
-            }
-        });
         
         //Criar JTable e adicionar ao painel de rolagem
         criarTabela();
@@ -77,21 +69,17 @@ public class LimiteRelatorioGeralDRG
         fundoExportar = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
         topCriterio = new JPanel(new FlowLayout(FlowLayout.CENTER,20,20));
         principal = new JPanel(new BorderLayout());
-        JPanel painelTabela = new JPanel(new FlowLayout(FlowLayout.CENTER));
         
         //Adicionar componentes a seus devidos paineis
-        painelTabela.add(tabela);
-        
         topCriterio.add(new JLabel("Criterio de ordenaçao"));
         topCriterio.add(criterioOrdenacao);
         
         fundoExportar.add(pdf);
         fundoExportar.add(sair);
-        fundoExportar.add(svg);
         
         principal.add(topCriterio,BorderLayout.PAGE_START);
         principal.add(fundoExportar,BorderLayout.PAGE_END);
-        principal.add(painelTabela,BorderLayout.CENTER);
+        principal.add(painelRolagem,BorderLayout.CENTER);
         
         //Criar JFrame e definir suas configuracoes
         janela = new JFrame();
@@ -122,9 +110,9 @@ public class LimiteRelatorioGeralDRG
             public Object getValueAt(int rowIndex, int columnIndex) {
                 switch(columnIndex)
                 {
-                    case 1:
+                    case 0:
                         return listaDados.get(rowIndex).getDefinicao();
-                    case 2:
+                    case 1:
                         return  listaDados.get(rowIndex).getNumero_total_altas();
                     default:
                         return listaDados.get(rowIndex).getNumero_hospitais_capacitados();
@@ -154,6 +142,7 @@ public class LimiteRelatorioGeralDRG
      */
     public void atualizarInterface(ArrayList<RelatorioDRGGeral> listaNova)
     {
+        tabela.setVisible(false);
         //Remover todos os dados do array
         while(!listaDados.isEmpty())
             listaDados.remove(0);
@@ -162,6 +151,9 @@ public class LimiteRelatorioGeralDRG
         for(RelatorioDRGGeral rel : listaNova)
             listaDados.add(new RelatorioDRGGeral(rel.getDefinicao(), rel.getNumero_total_altas(), rel.getNumero_hospitais_capacitados()));
         
+        tabela.setVisible(true);
         tabela.revalidate();
+        painelRolagem.revalidate();
+        principal.revalidate();
     }
 }
