@@ -77,14 +77,28 @@ public class DAO_RELATORIOS {
     
     /**
      * Gera o seguinte relatório: Relatório de pagamento medio total por hospital
+     * @param ordenar 1 = definicao DRG, 2 = numerototalAltas, 3 = numerohospitais capacitados
      * @return lista de dados do relatorio
      */
-    public ArrayList<RelatorioDRGGeral> relatorioDRG() {
+    public ArrayList<RelatorioDRGGeral> relatorioDRG(int ordenar) {
         ArrayList<RelatorioDRGGeral> lista = new ArrayList<>();
+        String consulta = "";
 
-        String consulta = "select concat (d.definicao,'#',att.numero_total_altas,'#',att.numero_hospitais_capacitados) \n" +
+        if(ordenar == 1)
+            consulta = "select concat (d.definicao,'#',att.numero_total_altas,'#',att.numero_hospitais_capacitados) \n" +
                             "from(select codigodrg,sum(numeroaltas) as numero_total_altas,count(idhospital) as numero_hospitais_capacitados from atendimento_drg group by codigodrg) att, drg d\n" +
-                            "where d.codigo = att.codigodrg order by att.numero_total_altas;";
+                            "where d.codigo = att.codigodrg order by d.definicao asc;";
+            else
+            {
+                if(ordenar == 2)        
+                    consulta = "select concat (d.definicao,'#',att.numero_total_altas,'#',att.numero_hospitais_capacitados) \n" +
+                            "from(select codigodrg,sum(numeroaltas) as numero_total_altas,count(idhospital) as numero_hospitais_capacitados from atendimento_drg group by codigodrg) att, drg d\n" +
+                            "where d.codigo = att.codigodrg order by att.numero_total_altas desc;";
+                else
+                    consulta = "select concat (d.definicao,'#',att.numero_total_altas,'#',att.numero_hospitais_capacitados) \n" +
+                                    "from(select codigodrg,sum(numeroaltas) as numero_total_altas,count(idhospital) as numero_hospitais_capacitados from atendimento_drg group by codigodrg) att, drg d\n" +
+                                    "where d.codigo = att.codigodrg order by att.numero_hospitais_capacitados desc;";
+            }
         SQLQuery sql = sessao.createSQLQuery(consulta);
         for (Object o : sql.list()) {
             String st = (String) o;

@@ -13,6 +13,7 @@ public class ControleRelatorios
     private LimiteRelatorioPagamentoMedioDrgEstado limRelatorioPagMedioDrgEstado;
     private LimiteRelatorioPagamentoMedioDRG limRelatorioPagMedioDRG;
     private LimiteRelatorioContagemDrgAtendidaPorEstado limRelatorioContagemDrgAtendidaEstado;
+    private LimiteRelatorioGeralDRG limRelatorioGeralDRG;
     
     public ControleRelatorios(Session sessao)
     {
@@ -89,5 +90,22 @@ public class ControleRelatorios
     public void interfaceRelatorioContagemDrgAtendidaPorEstado()
     {
         limRelatorioContagemDrgAtendidaEstado = new LimiteRelatorioContagemDrgAtendidaPorEstado(this,DAO.relatorioContNumeroDRGsEstado());
+    }
+    
+    /**
+     * Exibe a interface do relatorio geral de DRG
+     */
+    public void interfaceRelatorioGeralDRG()
+    {
+        limRelatorioGeralDRG = new LimiteRelatorioGeralDRG(this, DAO.relatorioDRG(1));
+    }
+    
+    /**
+     * Atualizar dados do relatorio - Usuario acionou o criterio de ordenaçao
+     * @param criterio criterio de ordenacao escolhido
+     */
+    public void atualizarRelatorioGeral(int criterio)
+    {
+        limRelatorioGeralDRG.atualizarInterface(DAO.relatorioDRG(criterio));
     }
 }

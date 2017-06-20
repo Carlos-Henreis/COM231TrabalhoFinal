@@ -191,7 +191,7 @@ public class LimitePrincipal {
         relGeralDRG.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //DEFINIR ACAO DO LISTENER
+                objCtrl.getControladorRelatorios().interfaceRelatorioGeralDRG();
             }
         });
         JMenuItem relDrgRegRef= new JMenuItem("Numero de DRG's atendidas por regiao de referencia", read);
