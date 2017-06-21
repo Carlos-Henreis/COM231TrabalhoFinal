@@ -4,9 +4,9 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/sagha?zeroDateTimeBehavior=convertToNull</property>
-    <property name="hibernate.connection.username">root</property>
-    <property name="hibernate.connection.password">rootroot</property>
+    <property name="hibernate.connection.url">jdbc:mysql://25.85.207.117:3306/sagha?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">aplicacao</property>
+    <property name="hibernate.connection.password">aplicacao</property>
     <mapping resource="Model/AtendimentoDrg.hbm.xml"/>
     <mapping resource="Model/Agente.hbm.xml"/>
     <mapping resource="Model/HospitaisRegiao.hbm.xml"/>
