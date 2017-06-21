@@ -132,8 +132,8 @@ public class LimiteRelatorioContagemDrgAtendidaPorEstado
             dadosTabela[i][1] = ""+rel.getContagem();
             i++;
         }
-        tabela = new JTable(dadosTabela, cabecalho);
         
+        tabela = new JTable(dadosTabela, cabecalho);
         objCtrl.gerarPDF("rel_NumDRGsAtendidasPorEstado", "Relatorio de numero de DRG's atendidas por cada estado", cabecalho, tabela);
     }
 }

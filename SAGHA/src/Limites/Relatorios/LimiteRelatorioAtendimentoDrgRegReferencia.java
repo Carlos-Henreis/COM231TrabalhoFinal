@@ -53,7 +53,7 @@ public class LimiteRelatorioAtendimentoDrgRegReferencia
         pdf.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                exportarPDF();
             }
         });
         sair = new JButton(sairIcone);
@@ -94,14 +94,19 @@ public class LimiteRelatorioAtendimentoDrgRegReferencia
      */
     public void exportarPDF()
     {
+        JTable tabela;
+        String colunas[] = {"Regiao de referencia","Numero de DRGs atendidas"};
+        String dadosTabela[][] = new String[listaDados.size()][2];
+        int i= 0;
         
-    }
-    
-    /**
-     * GERA UM .SVG DO RELATORIO
-     */
-    public void exportarSVG()
-    {
+        for(RelatorioNumDRGPorRef rel : listaDados)
+        {
+            dadosTabela[i][0] = rel.getRegiao_referencia();
+            dadosTabela[i][1] = ""+rel.getQtd_DRG();
+            i++;
+        }
         
+        tabela = new JTable(dadosTabela, colunas);
+        objCtrl.gerarPDF("rel_AtendDRGsRegReferencia","Relatorio de Atendimento de DRGs por regiao de referencia", colunas, tabela);
     }
 }
