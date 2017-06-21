@@ -21,15 +21,16 @@ public class LimiteRelatorioPagamentoMedioDrgEstado
     private ArrayList<RelatorioPagMedioDrgEstado> maioresValores,menoresValores;
     private JFrame tela;
     private ControleRelatorios objCtrl;
+    
+    private final ImageIcon pdfIcone = new ImageIcon("img/pdf1.png");
+    private final ImageIcon sairIcone = new ImageIcon("img/exit.png");
+    
     /**
      * Gera a interface do LimiteRelatorio de pagamentos medios de DRG por estado
      * @param lista lista de estados disponiveis
      * @param maioresVal lista com as 5 DRG's mais caras do estado
      * @param menoresVal lista com as 5 DRG's mais baratas do estado
      */
-    private final ImageIcon pdfIcone = new ImageIcon("img/pdf1.png");
-    private final ImageIcon sairIcone = new ImageIcon("img/exit.png");
-    
     public LimiteRelatorioPagamentoMedioDrgEstado(ControleRelatorios pCtrl,String lista[],ArrayList<RelatorioPagMedioDrgEstado> maioresVal,ArrayList<RelatorioPagMedioDrgEstado> menoresVal)
     {
         objCtrl = pCtrl;
@@ -171,7 +172,7 @@ public class LimiteRelatorioPagamentoMedioDrgEstado
         painelGraficoMenor = new ChartPanel(grafmenoresVal);
         painelGraficoMenor.setSize(800,600);
         
-        return painelGraficoMenor;        
+        return painelGraficoMenor;
     }
     
     public void atualizarParaNovoEstado(ArrayList<RelatorioPagMedioDrgEstado> maioresVal,ArrayList<RelatorioPagMedioDrgEstado> menoresVal)
