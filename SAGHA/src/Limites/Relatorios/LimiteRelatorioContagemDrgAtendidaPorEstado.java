@@ -7,11 +7,14 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import javax.swing.*;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 public class LimiteRelatorioContagemDrgAtendidaPorEstado
@@ -121,6 +124,7 @@ public class LimiteRelatorioContagemDrgAtendidaPorEstado
      */
     public void gerarPDF()
     {
+        gerarImagemGrafico();
         JTable tabela;
         String dadosTabela[][] = new String[listaDados.size()][2];
         String cabecalho[] = {"Estado","Numero de DRG's Atendidas"};
@@ -134,6 +138,22 @@ public class LimiteRelatorioContagemDrgAtendidaPorEstado
         }
         
         tabela = new JTable(dadosTabela, cabecalho);
-        objCtrl.gerarPDF("rel_NumDRGsAtendidasPorEstado", "Relatorio de numero de DRG's atendidas por cada estado", cabecalho, tabela);
+        objCtrl.gerarPdfComImagem("rel_NumDRGsAtendidasPorEstado", "Relatorio de numero de DRG's atendidas por cada estado", cabecalho, tabela,"graficos/barras.jpg");
+    }
+    
+    
+    /**
+     * Gerar imagem do grafico presente na interface para o usuario 
+     */
+    public void gerarImagemGrafico()
+    {
+      int width = 570;
+      int height = 350;
+      File BarChart = new File( "graficos/barras.jpg" ); 
+        try {
+            ChartUtilities.saveChartAsJPEG( BarChart ,graficoBarras, width , height );
+        } catch (Exception exc) {
+            System.out.println("[ERRO]: Falha ao exportar grafico para imagem");
+        }
     }
 }

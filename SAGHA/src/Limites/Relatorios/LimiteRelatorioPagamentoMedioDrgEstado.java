@@ -185,7 +185,7 @@ public class LimiteRelatorioPagamentoMedioDrgEstado
         dados1 = new DefaultCategoryDataset();
         for(RelatorioPagMedioDrgEstado rel : maioresVal)
         {
-            dados1.addValue(rel.getMedia(),rel.getDefinicao(),""+rel.getMedia());
+            dados1.addValue(rel.getMedia(),rel.getDefinicao(),(String)estadosCB.getItemAt(estadosCB.getSelectedIndex()));
         }
 
         //Gerar Grafico
@@ -201,7 +201,7 @@ public class LimiteRelatorioPagamentoMedioDrgEstado
         dados2 = new DefaultCategoryDataset();
         for(RelatorioPagMedioDrgEstado rel : menoresVal)
         {
-            dados2.addValue(rel.getMedia(),rel.getDefinicao(),rel.getDefinicao());
+            dados2.addValue(rel.getMedia(),rel.getDefinicao(),(String)estadosCB.getItemAt(estadosCB.getSelectedIndex()));
         }
 
         //Gerar Grafico
@@ -228,10 +228,13 @@ public class LimiteRelatorioPagamentoMedioDrgEstado
         central.add(subGrafico2);
         central.add(Box.createGlue());
         central.setVisible(true);
+        central.repaint();
         central.revalidate();
         
         //Atualizar painel principal e JFrame
+        principal.repaint();
         principal.revalidate();
+        tela.repaint();
         tela.revalidate();
     }
 }

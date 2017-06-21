@@ -32,8 +32,10 @@ public class LimiteTelaLogin
         
         //Criar TextFields
         cpf = new JTextField();
+        cpf.setText("00000000002");
         cpf.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(0,0,128)),"CPF:"));
         senha = new JPasswordField();
+        senha.setText("VICTOR");
         senha.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(0,0,128)),"Senha:"));
         
         //Adicionar Listener aos botoes e ao campo de senha
