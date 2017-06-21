@@ -26,6 +26,7 @@ public class LimiteRelatorioGeralDRG
     private JButton sair,pdf;
 
     private final ImageIcon pdfIcone = new ImageIcon("img/pdf1.png");
+    private final ImageIcon sairIcone = new ImageIcon("img/exit.png");
     
     public LimiteRelatorioGeralDRG(ControleRelatorios pCtrl,ArrayList<RelatorioDRGGeral> lista)
     {
@@ -34,14 +35,16 @@ public class LimiteRelatorioGeralDRG
         
         //Criar botoes
         pdf = new JButton(pdfIcone);
+        pdf.setBackground(new Color(0,0,128));
+        pdf.setBorderPainted(false);
         pdf.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
             }
         });
-        sair = new JButton("SAIR");
-        sair.setForeground(new Color(0,0,128));
+        sair = new JButton(sairIcone);
+        sair.setBackground(new Color(0,0,128));
         sair.setBorderPainted(false);
         sair.addActionListener(new ActionListener() {
             @Override
