@@ -90,7 +90,7 @@ public class LimiteRelatorioPagamentoMedioDrgEstado
         JPanel subGrafico2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
         subGrafico2.setBackground(Color.white);
         central = new JPanel();
-        box = new BoxLayout(central, BoxLayout.Y_AXIS);
+        box = new BoxLayout(central, BoxLayout.X_AXIS);
         central.setBackground(Color.white);
         central.setLayout(box);
         principal = new JPanel(new BorderLayout(30, 30));
@@ -141,7 +141,7 @@ public class LimiteRelatorioPagamentoMedioDrgEstado
         }
 
         //Gerar Grafico
-        grafmaioresVal = ChartFactory.createBarChart("Drg's mais caras do estado","Valor da DRG","Nome da DRG", dados1);
+        grafmaioresVal = ChartFactory.createBarChart("Drg's mais caras do estado","Valor da DRG","Custo do atendimento da DRG", dados1);
         grafmaioresVal.setBackgroundPaint(Color.white);
         
         //gerar paineis
@@ -161,11 +161,11 @@ public class LimiteRelatorioPagamentoMedioDrgEstado
         dados2 = new DefaultCategoryDataset();
         for(RelatorioPagMedioDrgEstado rel : menoresValores)
         {
-            dados2.addValue(rel.getMedia(),rel.getDefinicao(),rel.getDefinicao());
+            dados2.addValue(rel.getMedia(),rel.getDefinicao(),""+rel.getMedia());
         }
 
         //Gerar Grafico
-        grafmenoresVal = ChartFactory.createBarChart("Drg's menos custosas do estado","Valor da DRG","Nome da DRG", dados2);
+        grafmenoresVal = ChartFactory.createBarChart("Drg's com valores mais baixos do estado","Valor da DRG","Custo do atendimento da DRG", dados2);
         grafmenoresVal.setBackgroundPaint(Color.white);
         
         //gerar paineis
@@ -185,11 +185,11 @@ public class LimiteRelatorioPagamentoMedioDrgEstado
         dados1 = new DefaultCategoryDataset();
         for(RelatorioPagMedioDrgEstado rel : maioresVal)
         {
-            dados1.addValue(rel.getMedia(),rel.getDefinicao(),rel.getDefinicao());
+            dados1.addValue(rel.getMedia(),rel.getDefinicao(),""+rel.getMedia());
         }
 
         //Gerar Grafico
-        grafmaioresVal = ChartFactory.createBarChart("Drg's mais caras do estado","Valor da DRG","Nome da DRG", dados1);
+        grafmaioresVal = ChartFactory.createBarChart("Drg's mais caras do estado","Valor da DRG","Custo do atendimento da DRG", dados1);
         grafmaioresVal.setBackgroundPaint(Color.white);
         
         //gerar paineis

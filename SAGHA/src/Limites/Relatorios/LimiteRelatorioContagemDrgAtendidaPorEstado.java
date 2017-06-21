@@ -42,7 +42,7 @@ public class LimiteRelatorioContagemDrgAtendidaPorEstado
         pdf.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                gerarPDF();
             }
         });
         sair = new JButton(sairIcone);
@@ -116,13 +116,24 @@ public class LimiteRelatorioContagemDrgAtendidaPorEstado
         return painelGrafico;        
     }
     
+    /**
+     * Gerar um pdf a partir dos dados filtrados no relatorio
+     */
     public void gerarPDF()
     {
+        JTable tabela;
+        String dadosTabela[][] = new String[listaDados.size()][2];
+        String cabecalho[] = {"Estado","Numero de DRG's Atendidas"};
+        int i=0;
         
-    }
-    
-    public void gerarSVG()
-    {
+        for(RelatorioContagemDRGEstado rel : listaDados)
+        {
+            dadosTabela[i][0] = rel.getEstado();
+            dadosTabela[i][1] = ""+rel.getContagem();
+            i++;
+        }
+        tabela = new JTable(dadosTabela, cabecalho);
         
+        objCtrl.gerarPDF("rel_NumDRGsAtendidasPorEstado", "Relatorio de numero de DRG's atendidas por cada estado", cabecalho, tabela);
     }
 }

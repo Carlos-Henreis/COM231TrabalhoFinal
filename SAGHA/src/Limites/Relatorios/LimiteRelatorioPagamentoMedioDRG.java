@@ -19,6 +19,7 @@ public class LimiteRelatorioPagamentoMedioDRG
     private JFrame janela;
 
     private final ImageIcon pdfIcone = new ImageIcon("img/pdf1.png");
+    private final ImageIcon sairIcone = new ImageIcon("img/exit.png");
     
     public LimiteRelatorioPagamentoMedioDRG(ControleRelatorios pCtrl,String dados[][])
     {
@@ -36,18 +37,22 @@ public class LimiteRelatorioPagamentoMedioDRG
         
         //Criar botoes
         pdf = new JButton(pdfIcone);
+        pdf.setBackground(new Color(0,0,128));
+        pdf.setBorderPainted(false);
         pdf.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                
+            public void actionPerformed(ActionEvent e)
+            {
+                objCtrl.gerarPDF("rel_Pag_Medio_DRG", "Relatorio de pagamentos medios de DRG", colunas, tabela);
             }
         });
-        sair = new JButton("SAIR");
-        sair.setForeground(new Color(0,0,128));
+        sair = new JButton(sairIcone);
+        sair.setBackground(new Color(0,0,128));
         sair.setBorderPainted(false);
         sair.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
                 janela.dispose();
             }
         });
