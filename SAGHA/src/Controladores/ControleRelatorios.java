@@ -239,11 +239,12 @@ public class ControleRelatorios
             //Adicionar texto descrevendo o relatorio
             PdfPTable celula = new PdfPTable(new float[] { 0.5f });
             Paragraph hp2 = new Paragraph(texto,f1); 
-            hp2.setAlignment(Element.ALIGN_CENTER);
+            hp2.setAlignment(Element.ALIGN_JUSTIFIED);
             PdfPCell cel = new PdfPCell(hp2);
             cel.setBorder(-1);
             celula.addCell(cel);
             doc.add(celula);
+            
             
             // ADICIONA A JTABLE NO PDF
             PdfPTable table = getPdfPTable(jtable, nameHeaders);
@@ -318,7 +319,7 @@ public class ControleRelatorios
             PdfPTable celula = new PdfPTable(new float[] { 0.5f });
             Paragraph hp2 = new Paragraph("\n\n     No grafico acima estao sendo exibidos os 5 estados que mais atendem DRGs."
                     + " Caso seja de seu interesse algum estado que nao esta no grafico, esse ira constar na tabela abaixo, caso esteja cadastrado no sistema.\n\n\n",f1); 
-            hp2.setAlignment(Element.ALIGN_CENTER);
+            hp2.setAlignment(Element.ALIGN_JUSTIFIED);
             PdfPCell cel = new PdfPCell(hp2);
             cel.setBorder(-1);
             celula.addCell(cel);
@@ -403,7 +404,7 @@ public class ControleRelatorios
             Paragraph hp2 = new Paragraph("\n\n     Os graficos acima exibem as DRGs que possuem maiores custos e "
                     + "menores custos para o estado "+estado+". As demais DRGs atendidas nesse estado e seus devidos custos estao"
                     + " listadas na tabela abaixo.\n\n\n",f1); 
-            hp2.setAlignment(Element.ALIGN_CENTER);
+            hp2.setAlignment(Element.ALIGN_JUSTIFIED);
             PdfPCell cel = new PdfPCell(hp2);
             cel.setBorder(-1);
             celula.addCell(cel);
@@ -414,6 +415,77 @@ public class ControleRelatorios
             boolean add = doc.add(table);
 
 
+        } catch (DocumentException | IOException ex) {
+            System.out.println("Error: " + ex);
+        } finally {
+            doc.close();
+        }
+
+        // ESSE TRY É PARA ABRIR O PDF ASSIM QUE TERMINAR DE CRIAR ELE
+        try {
+            Desktop.getDesktop().open(new File(filename));
+
+        } catch (IOException ex) {
+            //Logger.getLogger(ControleRelatorios.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Falha ao gerar arquivo PDF!");
+        }
+    }
+    
+    /**
+     * Gerar pdf a partir de JTable
+     * @param filename nome do arquivo sem extensao
+     * @param nomerelatorio titulo do relatorio que sera criado
+     * @param nameHeaders titulo das colunas da tabela
+     * @param jtable tabela populada com os dados
+     */
+    public void gerarPdfRelatorioGeralDRG(String filename, String nomerelatorio, String[] nameHeaders, JTable jtable,String texto) {
+        
+        Document doc = new Document(PageSize.A4, 10, 10, 10, 10);
+        filename += ".pdf";
+        
+        try {
+            // INSTANCIA O ARQUIVO COMO PDF NO GERADOR
+            PdfWriter.getInstance(doc, new FileOutputStream(filename));
+            // ABRE O ARQUIVO
+            doc.open();
+            // FONTE ESTILO
+            Font f1 = new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD);
+            
+            // INICIO DO CABEÇALHO
+            // AREA DO CABEÇALHO - TABELA
+            PdfPTable HEADER = new PdfPTable(new float[] { 0.25f, 0.75f }); //cria uma HEADER com 2 colunas
+            
+            // CELULA 1 - LOGO
+            PdfPCell cel1 = new PdfPCell(); //cria uma celula com parametro de Image.getInstance com o caminho da imagem do cabeçalho
+            cel1.addElement(Image.getInstance("img/logo_login.jpeg"));
+            cel1.setBorder(-1); // aqui vc tira as bordas da celula 
+            
+            // CELULA 2 - TEXTO CABEÇALHO
+            PdfPCell cel2 = new PdfPCell(); //adiciona o paragrafo com o titulo na segunda celula.
+            Paragraph hp = new Paragraph("\nSAGHA - Sistema de Apoio À Gestão Hospitais Americanos\n"
+                    + nomerelatorio, f1); 
+            hp.setAlignment(Element.ALIGN_CENTER);
+            cel2.setBorder(-1);
+            cel2.addElement(hp);
+            
+            HEADER.addCell(cel1); //aqui adiciona as celulas na HEADER.
+            HEADER.addCell(cel2);
+            doc.add(HEADER); // coloca a HEADER na pagina do PDF.
+            // FIM DO CABEÇALHO
+            
+            //Adicionar texto descrevendo o relatorio
+            PdfPTable celula1 = new PdfPTable(new float[] { 0.5f });
+            Paragraph hp21 = new Paragraph(texto,f1); 
+            hp21.setAlignment(Element.ALIGN_JUSTIFIED_ALL);
+            PdfPCell cel4 = new PdfPCell(hp21);
+            cel4.setBorder(-1);
+            celula1.addCell(cel4);
+            doc.add(celula1);
+            
+            // ADICIONA A JTABLE NO PDF
+            PdfPTable table = getPdfPTable(jtable, nameHeaders);
+            doc.add(table);
+            
         } catch (DocumentException | IOException ex) {
             System.out.println("Error: " + ex);
         } finally {

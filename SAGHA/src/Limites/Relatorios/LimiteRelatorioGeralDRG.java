@@ -40,7 +40,7 @@ public class LimiteRelatorioGeralDRG
         pdf.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                gerarPDF();
             }
         });
         sair = new JButton(sairIcone);
@@ -158,5 +158,31 @@ public class LimiteRelatorioGeralDRG
         tabela.revalidate();
         painelRolagem.revalidate();
         principal.revalidate();
+    }
+    
+    /**
+     * Gerar pdf do relatorio Geral de DRg (este relatorio)
+     */
+    public void gerarPDF()
+    {
+        String colunas[] = {"Definicao da DRG","Total de altas","Hospitais capacitados"};
+        String texto = "\n\n\n      Este relatorio e um relatorio geral de DRG, para auxiliar os interessados"
+                + " em obter informaçoes importantes sobre as DRGs, como o numero total de altas realizados pelos hospitais "
+                + "americanos de cada DRG e tambem a quantidade de hospitais capacitados para atender enfermidas desse grupo relacionado de "
+                + "diagnostico. Esse relatorio pode ser combinado com outros do SAGHA para obter informaçoes profundas sobre as DRGs cadastradas no sistema.\n\n"
+                + "Criterio de ordenacao dos dados: ";
+        
+        String criterios[] = {"DEFINICAO DRG","TOTAL ALTAS","Nº HOSPITAIS CAPACITADOS"};
+        if(criterioOrdenacao.getSelectedIndex() == 0)
+            texto+= criterios[0]+" em ordem alfabetica.\n\n\n";
+        else
+        {
+            if(criterioOrdenacao.getSelectedIndex() == 1)
+                texto += criterios[1]+" em ordem descendente.\n\n\n";
+            else
+                texto += criterios[2]+" em ordem descendente.\n\n\n";
+        }
+        
+        objCtrl.gerarPdfRelatorioGeralDRG("RelatorioGeralDRG", "Relatorio Geral de DRG", colunas, tabela, texto);
     }
 }
