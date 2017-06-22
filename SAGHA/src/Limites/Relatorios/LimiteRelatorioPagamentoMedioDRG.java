@@ -43,7 +43,9 @@ public class LimiteRelatorioPagamentoMedioDRG
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                objCtrl.gerarPDF("rel_Pag_Medio_DRG", "Relatorio de pagamentos medios de DRG", colunas, tabela);
+                String texto = "\n\n\n      Esse relatorio lista o valor medio de pagamentos de DRG, considerando todos os estados. "
+                        + "Na tabela abaixo sao listadas as definiçoes das DRGs, seguidas do seu custo medio.\n\n\n";
+                objCtrl.gerarPDF("rel_Pag_Medio_DRG", "Relatorio de pagamentos medios de DRG", colunas, tabela,texto);
             }
         });
         sair = new JButton(sairIcone);

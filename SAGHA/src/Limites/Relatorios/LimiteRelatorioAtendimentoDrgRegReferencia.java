@@ -107,6 +107,8 @@ public class LimiteRelatorioAtendimentoDrgRegReferencia
         }
         
         tabela = new JTable(dadosTabela, colunas);
-        objCtrl.gerarPDF("rel_AtendDRGsRegReferencia","Relatorio de Atendimento de DRGs por regiao de referencia", colunas, tabela);
+        String texto = "\n\n\n      Na tabela abaixo estao listadas as regioes de referencia seguidas pela quantidade de DRGs que sao atendidas nessa regiao."
+                + " A contagem de DRGs atendidas leva em consideraçao os hospitais da regiao, contando apenas DRGs distintas.\n\n\n";
+        objCtrl.gerarPDF("rel_AtendDRGsRegReferencia","Relatorio de Atendimento de DRGs por regiao de referencia", colunas, tabela,texto);
     }
 }

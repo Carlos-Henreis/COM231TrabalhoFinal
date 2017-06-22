@@ -201,7 +201,7 @@ public class ControleRelatorios
      * @param nameHeaders titulo das colunas da tabela
      * @param jtable tabela populada com os dados
      */
-    public void gerarPDF(String filename, String nomerelatorio, String[] nameHeaders, JTable jtable) {
+    public void gerarPDF(String filename, String nomerelatorio, String[] nameHeaders, JTable jtable,String texto) {
         
         Document doc = new Document(PageSize.A4, 10, 10, 10, 10);
         filename += ".pdf";
@@ -235,6 +235,15 @@ public class ControleRelatorios
             HEADER.addCell(cel2);
             doc.add(HEADER); // coloca a HEADER na pagina do PDF.
             // FIM DO CABEÇALHO
+            
+            //Adicionar texto descrevendo o relatorio
+            PdfPTable celula = new PdfPTable(new float[] { 0.5f });
+            Paragraph hp2 = new Paragraph(texto,f1); 
+            hp2.setAlignment(Element.ALIGN_CENTER);
+            PdfPCell cel = new PdfPCell(hp2);
+            cel.setBorder(-1);
+            celula.addCell(cel);
+            doc.add(celula);
             
             // ADICIONA A JTABLE NO PDF
             PdfPTable table = getPdfPTable(jtable, nameHeaders);
