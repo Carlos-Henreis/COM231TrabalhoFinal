@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="3.2" jmeter="3.2 r1790748">
+  <hashTree>
+    <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Sem index" enabled="true">
+      <stringProp name="dataSource">teste</stringProp>
+      <stringProp name="query">select d.definicao, avg(a.mediapagamentosmedicare) as media from (select id from hospital where estado = &apos;MI&apos;) est, atendimento_drg a,drg d
+where a.idhospital = est.id and d.codigo = a.codigodrg group by codigodrg order by media asc;</stringProp>
+      <stringProp name="queryArguments"></stringProp>
+      <stringProp name="queryArgumentsTypes"></stringProp>
+      <stringProp name="queryTimeout"></stringProp>
+      <stringProp name="queryType">Select Statement</stringProp>
+      <stringProp name="resultSetHandler">Store as String</stringProp>
+      <stringProp name="resultVariable"></stringProp>
+      <stringProp name="variableNames"></stringProp>
+    </JDBCSampler>
+    <hashTree/>
+  </hashTree>
+</jmeterTestPlan>
