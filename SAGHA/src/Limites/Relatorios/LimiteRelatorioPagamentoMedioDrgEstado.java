@@ -4,6 +4,7 @@ import Controladores.ControleRelatorios;
 import Model.RelatorioPagMedioDrgEstado;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.util.ArrayList;
 import javax.swing.*;
 import org.jfree.chart.*;
@@ -72,7 +73,7 @@ public class LimiteRelatorioPagamentoMedioDrgEstado
         pdf.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                gerarPdf();
             }
         });
         
@@ -189,7 +190,7 @@ public class LimiteRelatorioPagamentoMedioDrgEstado
         }
 
         //Gerar Grafico
-        grafmaioresVal = ChartFactory.createBarChart("Drg's mais caras do estado","Valor da DRG","Custo do atendimento da DRG", dados1);
+        grafmaioresVal = ChartFactory.createBarChart("Drg's mais caras do estado","DRGs presentes no grafico","Custo medio do atendimento da DRG", dados1);
         grafmaioresVal.setBackgroundPaint(Color.white);
         
         //gerar paineis
@@ -205,7 +206,7 @@ public class LimiteRelatorioPagamentoMedioDrgEstado
         }
 
         //Gerar Grafico
-        grafmenoresVal = ChartFactory.createBarChart("Drg's menos custosas do estado","Valor da DRG","Nome da DRG", dados2);
+        grafmenoresVal = ChartFactory.createBarChart("Drg's menos custosas do estado","DRGs presentes no grafico","Custo medio do atendimento da DRG", dados2);
         grafmenoresVal.setBackgroundPaint(Color.white);
         
         //gerar paineis
@@ -236,5 +237,45 @@ public class LimiteRelatorioPagamentoMedioDrgEstado
         principal.revalidate();
         tela.repaint();
         tela.revalidate();
+    }
+    
+    public void gerarPdf()
+    {
+        String estado;
+        String cabecalho[] = {"Definicao da DRG","Custo medio da DRG no estado"};
+        
+        gerarImagemDosGraficos();
+        
+        if(estadosCB.getSelectedIndex() != 0)
+        {
+            estado = (String) estadosCB.getItemAt(estadosCB.getSelectedIndex());
+            objCtrl.gerarPdfRelatorioCustoEstado("RelatorioCustoMedioDRG_estado"+estado, "Relatorio de custos medios de DRGs realizado para o estado "+estado, cabecalho,"graficos/grafbarras1.jpg","graficos/grafbarras2.jpg", estado);
+        }
+        else
+            JOptionPane.showMessageDialog(principal,"Selecione um estado de referencia!");
+    }
+    
+    /**
+     * Salva os graficos em imagem para os relatorios em PDF
+     */
+    public void gerarImagemDosGraficos()
+    {
+        //grafmaioresVal
+        int width = 570;
+        int height = 350;
+        File BarChart = new File( "graficos/grafbarras1.jpg" ); 
+        try {
+            ChartUtilities.saveChartAsJPEG( BarChart ,grafmaioresVal, width , height );
+        } catch (Exception exc) {
+            System.out.println("[ERRO]: Falha ao exportar grafico para imagem");
+        }
+        
+        //grafmenoresVal
+        BarChart = new File( "graficos/grafbarras2.jpg" ); 
+        try {
+            ChartUtilities.saveChartAsJPEG( BarChart ,grafmenoresVal, width , height );
+        } catch (Exception exc) {
+            System.out.println("[ERRO]: Falha ao exportar grafico para imagem");
+        }
     }
 }

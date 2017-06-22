@@ -167,6 +167,32 @@ public class ControleRelatorios
     {
         return table.getModel().getValueAt(row_index, col_index);
     }
+    /**
+     * Cria uma JTable para auxiliar na geraçao de relatorios
+     * @param est estado de referencia
+     * @return tabela
+     */
+    public JTable obterTabelaRelatorioPagMedioDRgEstado(String est)
+    {
+        JTable tabela;
+        String cabecalho[] = {"Definicao da DRG","Custo medio do atendimento dessa DRG no estado "+est};
+        String dados[][];
+        
+        listaDados = DAO.relatorioPagMedioDrgEstado(est);
+        dados = new String[listaDados.size()][2];
+        int i=0;
+        
+        for(RelatorioPagMedioDrgEstado rel : listaDados)
+        {
+            dados[i][0] = rel.getDefinicao();
+            dados[i][1] = ""+rel.getMedia();
+            i++;
+        }
+        
+        tabela = new JTable(dados, cabecalho);
+        
+        return tabela;
+    }
     
     /**
      * Gerar pdf a partir de JTable
@@ -283,6 +309,91 @@ public class ControleRelatorios
             PdfPTable celula = new PdfPTable(new float[] { 0.5f });
             Paragraph hp2 = new Paragraph("\n\n     No grafico acima estao sendo exibidos os 5 estados que mais atendem DRGs."
                     + " Caso seja de seu interesse algum estado que nao esta no grafico, esse ira constar na tabela abaixo, caso esteja cadastrado no sistema.\n\n\n",f1); 
+            hp2.setAlignment(Element.ALIGN_CENTER);
+            PdfPCell cel = new PdfPCell(hp2);
+            cel.setBorder(-1);
+            celula.addCell(cel);
+            doc.add(celula);
+            
+            // ADICIONA A JTABLE NO PDF
+            PdfPTable table = getPdfPTable(jtable, nameHeaders);
+            boolean add = doc.add(table);
+
+
+        } catch (DocumentException | IOException ex) {
+            System.out.println("Error: " + ex);
+        } finally {
+            doc.close();
+        }
+
+        // ESSE TRY É PARA ABRIR O PDF ASSIM QUE TERMINAR DE CRIAR ELE
+        try {
+            Desktop.getDesktop().open(new File(filename));
+
+        } catch (IOException ex) {
+            //Logger.getLogger(ControleRelatorios.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Falha ao gerar arquivo PDF!");
+        }
+    }
+    
+    /**
+     * Gera um PDF com imagem para o relatorio de Contagem de DRGs atendidas por estado 
+     * @param filename nome do arquivo pdf que sera gerado
+     * @param nomerelatorio Titulo do relatorio
+     * @param nameHeaders Nome das colunas da tabela
+     * @param arquivoImagem1 nome do arquivo de imagem, do grafico1.
+     * @param arquivoImagem2 nome do arquivo de imagem do grafico2
+     * @param estado estado de referencia
+     */
+    public void gerarPdfRelatorioCustoEstado(String filename, String nomerelatorio, String[] nameHeaders,String arquivoImagem1,String arquivoImagem2,String estado) {
+        
+        JTable jtable = obterTabelaRelatorioPagMedioDRgEstado(estado);
+        Document doc = new Document(PageSize.A4, 10, 10, 10, 10);
+        filename += ".pdf";
+        
+        try {
+            // INSTANCIA O ARQUIVO COMO PDF NO GERADOR
+            PdfWriter.getInstance(doc, new FileOutputStream(filename));
+            // ABRE O ARQUIVO
+            doc.open();
+            // FONTE ESTILO
+            Font f1 = new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD);
+            
+            // INICIO DO CABEÇALHO
+            // AREA DO CABEÇALHO - TABELA
+            PdfPTable HEADER = new PdfPTable(new float[] { 0.25f, 0.75f }); //cria uma HEADER com 2 colunas
+            
+            // CELULA 1 - LOGO
+            PdfPCell cel1 = new PdfPCell(); //cria uma celula com parametro de Image.getInstance com o caminho da imagem do cabeçalho
+            cel1.addElement(Image.getInstance("img/logo_login.jpeg"));
+            cel1.setBorder(-1); // aqui vc tira as bordas da celula 
+            
+            // CELULA 2 - TEXTO CABEÇALHO
+            PdfPCell cel2 = new PdfPCell(); //adiciona o paragrafo com o titulo na segunda celula.
+            Paragraph hp = new Paragraph("\nSAGHA - Sistema de Apoio À Gestão Hospitais Americanos\n"
+                    + nomerelatorio, f1); 
+            hp.setAlignment(Element.ALIGN_CENTER);
+            cel2.setBorder(-1);
+            cel2.addElement(hp);
+            
+            HEADER.addCell(cel1); //aqui adiciona as celulas na HEADER.
+            HEADER.addCell(cel2);
+            doc.add(HEADER); // coloca a HEADER na pagina do PDF.
+            // FIM DO CABEÇALHO
+            
+            // ADICIONANDO IMAGENS DOS GRAFICOS DE BARRAS
+            Image img;
+            img = Image.getInstance(arquivoImagem1);
+            doc.add(img);
+            Image img2;
+            img2 = Image.getInstance(arquivoImagem2);
+            doc.add(img2);
+            
+            //ADICIONANDO DESCRICAO DO GRAFICO DE BARRAS
+            PdfPTable celula = new PdfPTable(new float[] { 0.5f });
+            Paragraph hp2 = new Paragraph("\n\n     Os graficos acima exibem as DRGs que possuem maiores custos e "
+                    + "menores custos para o estado "+estado+". As demais DRGs atendidas nesse estado e seus devidos custos estao"
+                    + " listadas na tabela abaixo.\n\n\n",f1); 
             hp2.setAlignment(Element.ALIGN_CENTER);
             PdfPCell cel = new PdfPCell(hp2);
             cel.setBorder(-1);
