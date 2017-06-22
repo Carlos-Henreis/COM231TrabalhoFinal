@@ -26,6 +26,8 @@ public class LimitePrincipal {
     private final ImageIcon userADD = new ImageIcon("img/usuario.png");
     private final ImageIcon userDEL = new ImageIcon("img/usuarioDEL.png");
     private final ImageIcon userSHOW = new ImageIcon("img/usuarioVIEW.png");
+    private final ImageIcon relatorio = new ImageIcon("img/relatorio2.png");
+    
     private final String AGENTE = "AGENTE";
     
     public LimitePrincipal(ControlePrincipal pCtrl,String tipo) {
@@ -162,7 +164,7 @@ public class LimitePrincipal {
             }
         });
         //-> MENUS DE RELATORIOS
-        JMenuItem relPagMedioAttDrgEstado = new JMenuItem("Pagamento medio do atendimento de DRG por estado", read);
+        JMenuItem relPagMedioAttDrgEstado = new JMenuItem("Pagamento medio do atendimento de DRG por estado", relatorio);
         relPagMedioAttDrgEstado .setBackground(Color.white);
         relPagMedioAttDrgEstado .addActionListener(new ActionListener() {
             @Override
@@ -170,7 +172,7 @@ public class LimitePrincipal {
                 objCtrl.getControladorRelatorios().interfaceRelatorioPagMedioDrgEstado();
             }
         });
-        JMenuItem relPagMedioAttDrg = new JMenuItem("Pagamento medio do atendimento de DRG (geral)", read);
+        JMenuItem relPagMedioAttDrg = new JMenuItem("Pagamento medio do atendimento de DRG (geral)", relatorio);
         relPagMedioAttDrg .setBackground(Color.white);
         relPagMedioAttDrg.addActionListener(new ActionListener() {
             @Override
@@ -178,7 +180,7 @@ public class LimitePrincipal {
                 objCtrl.getControladorRelatorios().interfaceRelatorioPagamentoMedioDRG();
             }
         });
-        JMenuItem relContNumDrgEstado = new JMenuItem("Contagem de numero de DRG's atedidas por estado", read);
+        JMenuItem relContNumDrgEstado = new JMenuItem("Contagem de numero de DRG's atendidas por estado", relatorio);
         relContNumDrgEstado.setBackground(Color.white);
         relContNumDrgEstado.addActionListener(new ActionListener() {
             @Override
@@ -186,7 +188,7 @@ public class LimitePrincipal {
                 objCtrl.getControladorRelatorios().interfaceRelatorioContagemDrgAtendidaPorEstado();
             }
         });
-        JMenuItem relGeralDRG = new JMenuItem("Relatorio geral de DRG - Altas totais e hospitais capacitados", read);
+        JMenuItem relGeralDRG = new JMenuItem("Relatorio geral de DRG - Altas totais e hospitais capacitados", relatorio);
         relGeralDRG.setBackground(Color.white);
         relGeralDRG.addActionListener(new ActionListener() {
             @Override
@@ -194,7 +196,7 @@ public class LimitePrincipal {
                 objCtrl.getControladorRelatorios().interfaceRelatorioGeralDRG();
             }
         });
-        JMenuItem relDrgRegRef= new JMenuItem("Numero de DRG's atendidas por regiao de referencia", read);
+        JMenuItem relDrgRegRef= new JMenuItem("Numero de DRG's atendidas por regiao de referencia", relatorio);
         relDrgRegRef.setBackground(Color.white);
         relDrgRegRef.addActionListener(new ActionListener() {
             @Override

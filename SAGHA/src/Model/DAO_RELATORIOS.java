@@ -25,8 +25,9 @@ public class DAO_RELATORIOS {
     public ArrayList<RelatorioPagMedioDrgEstado> relatorioPagMedioDrgEstado(String est) {
         ArrayList<RelatorioPagMedioDrgEstado> lista = new ArrayList<>();
 
-        String consulta = "select concat (sel.definicao,'#',sel.media) "
-                + "from (select d.definicao,avg(a.mediapagamentosmedicare) as media from hospital h,(select id from hospital where estado = :est) est, atendimento_drg a,drg d where h.id = est.id and d.codigo = a.codigodrg group by codigodrg) sel order by sel.media asc";
+        String consulta = "select concat(sel.definicao,'#',sel.media) from (select d.definicao, avg(a.mediapagamentosmedicare) as media from (select id from hospital where estado = :est) est, atendimento_drg a,drg d " +
+                          "where a.idhospital = est.id and d.codigo = a.codigodrg "
+                        + "group by codigodrg order by media asc) sel";
         SQLQuery sql = sessao.createSQLQuery(consulta);
         sql.setString("est", est);
 
